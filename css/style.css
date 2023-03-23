@@ -400,13 +400,21 @@ span {
     .header {
         padding: 2rem 3%;
     }
-
+    
     section {
         padding: 10rem 3% 2rem;
     }
 
     .services {
         padding-bottom: 7rem;
+    }
+
+    .portfolio {
+        padding-bottom: 7rem;
+    }
+
+    .contact {
+        min-height: auto;
     }
 
     .footer {
@@ -477,5 +485,22 @@ span {
     }
     .portfolio-container {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 768px) {
+    .portfolio-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 450px) {
+    html {
+        font-size: 50%;
+    }
+
+    .contact form .input-box input {
+        width: 100%;
     }
 }
