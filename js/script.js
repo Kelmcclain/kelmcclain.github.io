@@ -40,15 +40,25 @@ window.onscroll = () => {
 
 /*=============Scroll reveal===============*/
 ScrollReveal({
-    reset: true,
+    /*reset: true,*/
     distance: '80px',
-    duration:2000,
+    duration: 2000,
     delay: 200,
 });
 
 ScrollReveal().reveal('.home-content, .heading', { origin: 'top' });
 ScrollReveal().reveal('.home-img, .services-container, .porfolio-box, .contact form', { origin: 'bottom' });
+ScrollReveal().reveal('.home-content h1, .about-img', { origin: 'left' });
+ScrollReveal().reveal('.home-content p, .about-content', { origin: 'right' });
 
 
 
+/*=============typed js===============*/
 
+const typed = new Typed('.multiple-text', {
+    strings: ['Frontend Developer', 'Graphic Designer', 'Photographer', 'Data Analyst'],
+    typeSpeed: 50,
+    backSpeed: 50,
+    backDelay: 2000,
+    loop: true
+});
