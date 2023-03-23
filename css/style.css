@@ -395,6 +395,14 @@ span {
         font-size: 55%;
     }
 }
+@media (min-width: 1200px) {
+    html {
+        font-size: 55%;
+    }
+    section {
+        padding: 10rem 3% 2rem;
+    }
+}
 
 @media (max-width: 991px) {
     .header {
