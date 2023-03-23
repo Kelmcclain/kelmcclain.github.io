@@ -29,7 +29,7 @@ html {
 body {
     background: var(--bg-color);
     color: var(--text-color);
- 
+
 }
 
 .section {
@@ -51,7 +51,7 @@ body {
 
 }
 
-.header.sticky{
+.header.sticky {
     border-bottom: .1rem solid rgba(0, 0, 0, .2);
 }
 
@@ -84,7 +84,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
 }
 
 .home-img img {
@@ -281,7 +281,7 @@ span {
 }
 
 
-.portfolio-box:hover .portfolio-layer{
+.portfolio-box:hover .portfolio-layer {
     transform: translateY(0%);
 }
 
@@ -310,11 +310,11 @@ span {
     color: var(--second-bg-color);
 }
 
-.contact h2{
+.contact h2 {
     margin-bottom: 3rem;
 }
 
-.contact form{
+.contact form {
     max-width: 70rem;
     margin: 1rem auto;
     text-align: center;
@@ -338,7 +338,7 @@ span {
     margin: .7rem 0;
 }
 
-.contact form .input-box input{
+.contact form .input-box input {
     width: 49%;
 }
 
@@ -346,7 +346,7 @@ span {
     resize: none;
 }
 
-.contact form .btn{
+.contact form .btn {
     margin-top: 2rem;
     cursor: pointer;
 }
@@ -364,7 +364,7 @@ span {
     font-size: 1.6rem;
 }
 
-.footer-iconTop a{
+.footer-iconTop a {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -375,8 +375,8 @@ span {
 
 }
 
-.footer-iconTop a:hover{
-    box-shadow: 0 0 1rem var(--main-color) ;
+.footer-iconTop a:hover {
+    box-shadow: 0 0 1rem var(--main-color);
     transform: scale(1.2);
 }
 
@@ -403,6 +403,10 @@ span {
 
     section {
         padding: 10rem 3% 2rem;
+    }
+
+    .services {
+        padding-bottom: 7rem;
     }
 
     .footer {
@@ -439,7 +443,7 @@ span {
     }
 
     .home {
-        flex-direction: column ;
+        flex-direction: column;
     }
 
     .home-content h3 {
@@ -452,5 +456,26 @@ span {
 
     .home-img img {
         width: 70vw;
+        margin-top: 4rem;
+    }
+
+    .about {
+        flex-direction: column-reverse;
+    }
+
+    .about img {
+        width: 70vw;
+        margin-top: 4rem;
+    }
+
+    .services h2 {
+        margin-top: 3rem;
+    }
+
+    .portfolio h2 {
+        margin-bottom: 3rem;
+    }
+    .portfolio-container {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
