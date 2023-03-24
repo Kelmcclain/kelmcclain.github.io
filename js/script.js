@@ -71,7 +71,10 @@ function sendEmail() {
         To: 'mcclainkel@gmail.com',
         From: 'mcclaintuei@gmail.com',
         Subject: document.getElementById('Subject').value,
-        Body: document.getElementById('Body').value,
+        Body: "Name: " + document.getElementById("Name").value
+        +"<br> Email: " + document.getElementById("Email").value
+        +"<br> Phone No: " + document.getElementById("Number").value 
+        +"<br> Message: " + document.getElementById("Body").value 
     }).then(
         message => alert("Message sent successfully!")
     );
