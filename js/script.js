@@ -62,3 +62,17 @@ const typed = new Typed('.multiple-text', {
     backDelay: 2000,
     loop: true
 });
+
+
+/*=============SMPTJS===============*/
+function sendEmail() {
+    Email.send({
+        SecureToken: "2c405ff0-f189-4883-a182-79cb228278e5",
+        To: 'mcclainkel@gmail.com',
+        From: 'mcclaintuei@gmail.com',
+        Subject: document.getElementById('Subject').value,
+        Body: document.getElementById('Body').value,
+    }).then(
+        message => alert("Message sent successfully!")
+    );
+};

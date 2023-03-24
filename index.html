@@ -40,14 +40,14 @@
             <h3>Hello, I'm </h3>
             <h1>McClain Kelvin</h1>
             <h3>And I'm a <span class="multiple-text"></span></h3>
-            <p>I'm a multi-disciplinary professional with expertise in frontend development, 
-                graphic design, photography, and data analysis. I bring a creative and analytical 
-                approach to all of my projects, using my diverse skillset to deliver engaging, 
-                and effective solutions.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam fugiat cumque nobis nemo ex, officia
+                numquam cum minima id maxime facere beatae rerum amet deleniti reiciendis dignissimos! Iste, quis
+                suscipit.</p>
             <div class="social-media">
                 <a href="https://twitter.com/Kelmcclain" target="_blank"><i class='bx bxl-twitter'></i></a>
                 <a href="https://instagram.com/Kelmcclain" target="_blank"><i class='bx bxl-instagram-alt'></i></i></a>
-                <a href="https://www.linkedin.com/in/mcclain-kelvin-9894a81ba?originalSubdomain=ke" target="_blank"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://www.linkedin.com/in/mcclain-kelvin-9894a81ba?originalSubdomain=ke" target="_blank"><i
+                        class='bx bxl-linkedin'></i></a>
             </div>
             <a href="#" class="btn">Download Resume</a>
         </div>
@@ -65,10 +65,10 @@
         <div class="about-content">
             <h2 class="heading">About <span>Me</span></h2>
             <h3>Frontend Developer</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Nostrum cupiditate nisi nihil recusandae corporis? Accusamus
-                tempore laudantium unde architecto! Sapiente qui debitis at
-                tempora nulla ducimus vero nam dolorem esse.</p>
+            <p>I'm a multi-disciplinary professional with expertise in frontend development,
+                graphic design, photography, and data analysis. I bring a creative and analytical
+                approach to all of my projects, using my diverse skillset to deliver engaging,
+                and effective solutions.</p>
             <a href="#" class="btn">Read More</a>
         </div>
     </section>
@@ -190,17 +190,18 @@
 
     <section class="contact" id="contact">
         <h2 class="heading">Contact <span>Me</span></h2>
-        <form action="#">
-            <div class="input-box">
-                <input type="text" placeholder="Full Name">
-                <input type="text" placeholder="Email Address">
+        <form onsubmit="sendEmail(); reset(); return false">
+            <!--         <div class="input-box">
+                <input type="text" id="name" placeholder="Full Name">
+                <input type="text" id="email" placeholder="Email Address">
             </div>
+            -->
             <div class="input-box">
-                <input type="number" placeholder="Mobile Number">
-                <input type="text" placeholder="Email Subject">
+                <!--  <input type="number" id="number" placeholder="Mobile Number"> -->
+                <input type="text" id="Subject" placeholder="Your Email">
             </div>
-            <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
-            <input type="submit" value="Send Message" class="btn">
+            <textarea name="" id="Body" cols="30" rows="10" placeholder="Type Your Message Here"></textarea>
+            <input type="submit" class="btn">
         </form>
     </section>
     <!--Footer design-->
@@ -210,7 +211,7 @@
             <p>Copyright &copy; 2023 by McClain | All Rights Reserved</p>
         </div>
         <div class="footer-iconTop">
-            <a href="#home"><i class='bx bx-up-arrow-circle' ></i></a>
+            <a href="#home"><i class='bx bx-up-arrow-circle'></i></a>
         </div>
     </footer>
     <!--Scroll reveal-->
@@ -218,6 +219,7 @@
 
     <!--Typed js-->
     <script src="https://unpkg.com/typed.js@2.0.132/dist/typed.umd.js"></script>
-
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script src="js/script.js"></script>
+
 </body>
