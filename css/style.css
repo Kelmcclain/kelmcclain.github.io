@@ -91,6 +91,8 @@ body {
 .home-img img {
     width: 35vw;
     animation: floatImage 4s ease-in-out infinite;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
 }
 
 @keyframes floatImage {
