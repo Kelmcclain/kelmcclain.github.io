@@ -96,13 +96,15 @@ body {
 }
 
 @keyframes floatImage {
-    0%{
+    0% {
         transform: translateY(0);
     }
-    50%{
+
+    50% {
         transform: translateY(-2.4rem);
     }
-    100%{
+
+    100% {
         transform: translateY(0);
     }
 }
@@ -173,6 +175,8 @@ span {
     box-shadow: none;
 }
 
+
+/* About page design */
 .about {
     display: flex;
     justify-content: center;
@@ -201,8 +205,26 @@ span {
 
 .about-content p {
     font-size: 1.6rem;
-    margin: 2rem 0 3rem;
+    margin: 2rem 0 0;
 }
+
+
+.read-more-container{
+    display: flex;
+    flex-direction: column;
+
+}
+.read-more-btn {
+    color: aqua;
+    font-size: 15px;
+}
+
+.read-more-text--show {
+    display: inline;
+}
+
+
+/* Services page design */
 
 .services h2 {
     margin-bottom: 5rem;
@@ -410,10 +432,12 @@ span {
         font-size: 55%;
     }
 }
+
 @media (min-width: 1200px) {
     html {
         font-size: 55%;
     }
+
     section {
         padding: 10rem 3% 2rem;
     }
@@ -423,7 +447,7 @@ span {
     .header {
         padding: 2rem 3%;
     }
-    
+
     section {
         padding: 10rem 3% 2rem;
     }
@@ -506,6 +530,7 @@ span {
     .portfolio h2 {
         margin-bottom: 3rem;
     }
+
     .portfolio-container {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -532,12 +557,15 @@ span {
     .home-img img {
         width: 90vw;
     }
+
     .about-img img {
         width: 90vw;
     }
+
     .footer {
         flex-direction: column-reverse;
     }
+
     .footer p {
         text-align: center;
         margin-top: 2rem;
