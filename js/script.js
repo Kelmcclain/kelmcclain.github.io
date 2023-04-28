@@ -82,17 +82,21 @@ function sendEmail() {
 
 const parentContainer = document.querySelector('.about-content');
 
-parentContainer.addEventListener('click', event=> {
+parentContainer.addEventListener('click', event => {
     const current = event.target;
 
-    const isReadMoreBtn = current.className.includes('read-more-btn');
+    const isReadMoreBtn = current.classList.contains('read-more-btn');
     if (!isReadMoreBtn) return;
 
     const currentText = event.target.parentNode.querySelector('.read-more-text');
-    
-    currentText.classList.toggle('read-more-text--show');
-    current.textContent = current.textContent.includes('Read More') ?
-    "Read Less..." : "Read More..."
 
-})
+    currentText.classList.toggle('read-more-text--hide');
+    current.textContent = currentText.classList.contains('read-more-text--hide') ? "Read More..." : "Read Less...";
+});
+
+const readMoreBtn = document.querySelector('.read-more-btn');
+const readMoreText = document.querySelector('.read-more-text');
+
+readMoreBtn.textContent = 'Read More...';
+readMoreText.classList.add('read-more-text--hide');
 

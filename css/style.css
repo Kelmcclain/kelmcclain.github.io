@@ -208,20 +208,26 @@ span {
     margin: 2rem 0 0;
 }
 
-
-.read-more-container{
+.read-more-container {
     display: flex;
     flex-direction: column;
-
+    color: white;
 }
+
 .read-more-btn {
     color: aqua;
     font-size: 15px;
 }
 
-.read-more-text--show {
-    display: inline;
+.read-more-text--hide {
+    display: none;
 }
+
+.read-more-text{
+    color: white;
+}
+
+
 
 
 /* Services page design */
