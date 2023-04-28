@@ -37,8 +37,8 @@ body {
     width: 400px;
     height: 1000px;
     overflow: hidden;
-    background: rgb(8, 61, 65);
-    color: white;
+    background: rgba(8, 61, 65, 0.418);
+    color: rgb(255, 255, 255);
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     display: flex;
@@ -204,10 +204,7 @@ body {
         width: 100%;
     }
 
-    .card-content table {
-        margin: 15px;
-    }
-
+   
     .content-block {
         width: 100%;
         margin-top: 20px;
