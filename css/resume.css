@@ -78,7 +78,7 @@ body {
     padding: 15px;
 }
 
-.card-content table td{
+.card-content table td {
     padding-bottom: 10px;
 }
 
@@ -137,27 +137,35 @@ body {
     text-align: justify;
     padding: 0 50px 30px 50px;
 }
+
 /* Skills Section design */
-.skills-container{
+.skills-container {
     padding: 15px;
-}
-.skills {
-    width: 160px;
-    height: 160px;
-    /* background-color: #0abde3; */
-    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-.outer{
+
+.skills {
+    width: 100px;
+    height: 100px;
+    /* background-color: #0abde3; */
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.outer {
     height: 70px;
     width: 70px;
     border-radius: 50%;
     padding: 15px;
     box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
-                -6px -6px 10px -1px rgba(255,255, 255, 0.7);
+        -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
 }
 
-.inner{
+.inner {
     height: 69px;
     width: 69px;
     border-radius: 50%;
@@ -165,23 +173,23 @@ body {
     align-items: center;
     justify-content: center;
     box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
-                inset -4px -4px 6px -1px rgba(255,255, 255, 0.7),
-                 -0.5px -0.5px 0px rgba(255,255, 255, 1),
-                 0.5px 0.5px 0px rgba(0, 0, 0, 0.15),
-                 0px 12px 10px -10px rgba(0, 0, 0, 0.15);
+        inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7),
+        -0.5px -0.5px 0px rgba(255, 255, 255, 1),
+        0.5px 0.5px 0px rgba(0, 0, 0, 0.15),
+        0px 12px 10px -10px rgba(0, 0, 0, 0.15);
 }
 
-#number{
+#number {
     font-weight: 600;
 }
 
-circle{
+circle {
     fill: none;
     stroke: url(#GradientColor);
     stroke-width: 20px;
     stroke-dasharray: 248;
     stroke-dashoffset: 248;
-    animation: anim 1s linear forwards ;
+    animation: anim 1s linear forwards;
 }
 
 svg {
@@ -190,13 +198,27 @@ svg {
     left: 0;
 }
 
-@keyframes anim{
-    100%{
-        stroke-dashoffset:  38;
+@keyframes anim {
+    100% {
+        stroke-dashoffset: 38;
     }
 }
 
 
+.animation2 {
+    fill: none;
+    stroke: url(#GradientColor);
+    stroke-width: 20px;
+    stroke-dasharray: 248;
+    stroke-dashoffset: 248;
+    animation: anim2 1s linear forwards;
+}
+
+@keyframes anim2 {
+    100% {
+        stroke-dashoffset: 86;
+    }
+}
 
 
 
@@ -284,7 +306,7 @@ svg {
         width: 100%;
     }
 
-   
+
     .content-block {
         width: 100%;
         margin-top: 20px;
