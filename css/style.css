@@ -13,8 +13,8 @@
 }
 
 :root {
-    --bg-color: #1f242d;
-    --second-bg-color: #323946;
+    --bg-color: #1f2b2d;
+    --second-bg-color: #324246;
     --text-color: #fff;
     --main-color: rgb(255, 196, 0);
 
@@ -215,7 +215,7 @@ span {
 }
 
 .read-more-btn {
-    color: aqua;
+    color: rgb(204, 178, 62);
     font-size: 15px;
 }
 
