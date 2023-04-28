@@ -1,6 +1,7 @@
 
 htmlSkill();
 cssSkill() ;
+jsSkill();
 function htmlSkill() {
     let number = document.getElementById("html-number");
     console.log(number)
@@ -26,6 +27,23 @@ function cssSkill() {
     setInterval(() => {
 
         if (counter === 65) {
+            clearInterval();
+        } else {
+            counter += 1;
+            number.innerHTML = counter + "%"
+        }
+
+    }, 10)
+}
+
+function jsSkill() {
+    let number = document.getElementById("js-number");
+    console.log(number)
+    let counter = 0;
+
+    setInterval(() => {
+
+        if (counter === 50) {
             clearInterval();
         } else {
             counter += 1;
