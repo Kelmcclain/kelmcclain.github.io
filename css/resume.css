@@ -23,6 +23,7 @@ body {
     max-width: 1200px;
     display: flex;
     justify-content: space-around;
+    padding-top: 30px;
 }
 
 .resume-column {
@@ -37,8 +38,8 @@ body {
     width: 400px;
     height: 1000px;
     overflow: hidden;
-    background: rgb(5, 42, 44);
-    color: rgb(255, 255, 255);
+    background: rgb(235, 233, 233);
+    color: black;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     display: flex;
@@ -83,7 +84,7 @@ body {
 
 .card-content h3 {
     font-size: 18px;
-    color: #fafafa;
+    color: rgb(14, 149, 167);
     text-align: center;
     margin: 0;
 }
@@ -115,7 +116,7 @@ body {
 
 .resume-icons a {
     font-size: 20px;
-    color: #ffffff;
+    color: #125e54;
     padding: 0 14px;
     transition: 0.6s ease;
     text-decoration: none;
@@ -136,6 +137,81 @@ body {
     text-align: justify;
     padding: 0 50px 30px 50px;
 }
+/* Skills Section design */
+.skills-container{
+    padding: 15px;
+}
+.skills {
+    width: 160px;
+    height: 160px;
+    /* background-color: #0abde3; */
+    position: relative;
+}
+
+.outer{
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    padding: 15px;
+    box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+                -6px -6px 10px -1px rgba(255,255, 255, 0.7);
+}
+
+.inner{
+    height: 69px;
+    width: 69px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
+                inset -4px -4px 6px -1px rgba(255,255, 255, 0.7),
+                 -0.5px -0.5px 0px rgba(255,255, 255, 1),
+                 0.5px 0.5px 0px rgba(0, 0, 0, 0.15),
+                 0px 12px 10px -10px rgba(0, 0, 0, 0.15);
+}
+
+#number{
+    font-weight: 600;
+}
+
+circle{
+    fill: none;
+    stroke: url(#GradientColor);
+    stroke-width: 20px;
+    stroke-dasharray: 248;
+    stroke-dashoffset: 248;
+    animation: anim 1s linear forwards ;
+}
+
+svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+@keyframes anim{
+    100%{
+        stroke-dashoffset:  38;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

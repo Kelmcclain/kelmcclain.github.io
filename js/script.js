@@ -80,6 +80,9 @@ function sendEmail() {
     );
 };
 
+
+
+//Read More Button
 const parentContainer = document.querySelector('.about-content');
 
 parentContainer.addEventListener('click', event => {
