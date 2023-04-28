@@ -148,6 +148,7 @@ body {
 
 
 .skills {
+    margin: 0 10px 30px 0;
     width: 100px;
     height: 100px;
     /* background-color: #0abde3; */
@@ -220,7 +221,20 @@ svg {
     }
 }
 
+.animation3 {
+    fill: none;
+    stroke: url(#GradientColor);
+    stroke-width: 20px;
+    stroke-dasharray: 248;
+    stroke-dashoffset: 248;
+    animation: anim3 1s linear forwards;
+}
 
+@keyframes anim3 {
+    100% {
+        stroke-dashoffset: 120;
+    }
+}
 
 
 
