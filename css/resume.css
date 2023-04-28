@@ -77,6 +77,10 @@ body {
     padding: 15px;
 }
 
+.card-content table td{
+    padding-bottom: 10px;
+}
+
 .card-content h3 {
     font-size: 18px;
     color: #fafafa;
