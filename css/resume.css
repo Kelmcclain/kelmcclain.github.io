@@ -20,8 +20,8 @@ body {
 
 
 .resume-section {
-    max-width: 1000px;
-    max-height: 2000px;
+    max-width: 1020px;
+    max-height: 1320px;
     display: flex;
     justify-content: space-around;
    
@@ -37,7 +37,7 @@ body {
 .card {
     font-family: "Candara", sans-serif;
     width: 400px;
-    height: 2000px;
+    height: 1320px;
     overflow: hidden;
     background: rgb(235, 233, 233);
     color: black;
@@ -256,7 +256,7 @@ svg {
 /* Content block in resume*/
 .content-block {
     font-family: "Candara", sans-serif;
-    height: 2000px;
+    height: 1320px;
     overflow: hidden;
     background: #ffffff;
     border-radius: 10px;
