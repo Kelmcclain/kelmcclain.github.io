@@ -316,6 +316,24 @@ svg {
     padding: 0 50px 30px 50px;
 }
 
+.hobby-icons{
+    color: #04657a;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    padding: 10px 0 0 20px;
+    font-size: 20px;
+}
+.hobby-icons i{
+    margin-bottom: 10px;
+}
+
+.hobby-icons span{
+    text-decoration: none;
+    font-size: 12px;
+    padding-left: 10px;
+}
+
 
 @media (max-width:477px) {
 
