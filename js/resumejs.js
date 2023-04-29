@@ -2,6 +2,7 @@
 htmlSkill();
 cssSkill() ;
 jsSkill();
+flutterSkill();
 function htmlSkill() {
     let number = document.getElementById("html-number");
     console.log(number)
@@ -16,7 +17,7 @@ function htmlSkill() {
             number.innerHTML = counter + "%"
         }
 
-    }, 10)
+    }, 8)
 }
 
 function cssSkill() {
@@ -33,7 +34,7 @@ function cssSkill() {
             number.innerHTML = counter + "%"
         }
 
-    }, 10)
+    }, 8)
 }
 
 function jsSkill() {
@@ -50,5 +51,23 @@ function jsSkill() {
             number.innerHTML = counter + "%"
         }
 
-    }, 10)
+    }, 8)
+}
+
+
+function flutterSkill() {
+    let number = document.getElementById("flutter-number");
+    console.log(number)
+    let counter = 0;
+
+    setInterval(() => {
+
+        if (counter === 35) {
+            clearInterval();
+        } else {
+            counter += 1;
+            number.innerHTML = counter + "%"
+        }
+
+    }, 8)
 }

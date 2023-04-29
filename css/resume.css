@@ -23,7 +23,7 @@ body {
     max-width: 1200px;
     display: flex;
     justify-content: space-around;
-    padding-top: 30px;
+   
 }
 
 .resume-column {
@@ -235,6 +235,22 @@ svg {
         stroke-dashoffset: 120;
     }
 }
+
+.animation4 {
+    fill: none;
+    stroke: url(#GradientColor);
+    stroke-width: 20px;
+    stroke-dasharray: 248;
+    stroke-dashoffset: 248;
+    animation: anim4 1s linear forwards;
+}
+
+@keyframes anim4 {
+    100% {
+        stroke-dashoffset: 160;
+    }
+}
+
 
 
 
