@@ -24,7 +24,7 @@ body {
     max-height: 1320px;
     display: flex;
     justify-content: space-around;
-   
+
 }
 
 .resume-column {
@@ -290,7 +290,6 @@ svg {
     font-size: 14px;
     text-align: left;
     padding: 0 50px 5px 50px;
-    width: 400px;
 }
 
 .content-block ul {
@@ -303,7 +302,7 @@ svg {
     padding: 0 50px 30px 50px;
 }
 
-.hobby-icons{
+.hobby-icons {
     color: #04657a;
     display: flex;
     flex-direction: column;
@@ -311,11 +310,12 @@ svg {
     padding: 10px 0 20px 20px;
     font-size: 20px;
 }
-.hobby-icons i{
+
+.hobby-icons i {
     margin-bottom: 10px;
 }
 
-.hobby-icons span{
+.hobby-icons span {
     text-decoration: none;
     font-size: 12px;
     padding-left: 10px;
@@ -340,7 +340,6 @@ svg {
     .card {
         width: 100%;
     }
-
 
     .content-block {
         width: 100%;
