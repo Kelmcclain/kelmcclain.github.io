@@ -207,6 +207,7 @@ span {
 
 .about-content p {
     font-size: 1.6rem;
+    max-width: 500px;
 }
 
 .read-more-container {

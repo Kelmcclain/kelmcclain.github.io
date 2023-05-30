@@ -1,0 +1,56 @@
+<html>
+<html lang="eng">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!--Box icon-->
+    <title>Incrementor</title>
+    <!--Custom css-->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <section>
+        <div class="header">
+            <h2>Incident Count Tracker</h2>
+            <i class='bx bxs-brush theme-switch'></i>
+        </div>
+    </section>
+    <section id="body-section">
+        <div class="container">
+            <p class="incident-Element"></p>
+            <div class="container-btns">
+                <button class="button js-increment">+1</button>
+                <button class="button js-decrement">-1</button>
+            </div>
+            <button class="button js-reset">Reset</button>
+            <div class="weekly-avg">Weekly Average:</div>
+        </div>
+        <div class="records-container">
+            <div class="js-input-grid">
+                <!--<input type="text" class="js-day-input" placeholder="Day">-->
+                <select class="js-day-input">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                </select>
+
+                <input type="number" class="js-count-input" placeholder="Incidents">
+                <button class="button js-add-record-btn">Add</button>
+            </div>
+            <div class="js-records-grid">
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
