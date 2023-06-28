@@ -5,7 +5,7 @@ const productsHTML = products.map((product) => {
     const {id, image, name, rating, priceCents, brand } = product
         return `
         <div class="product js-product-${id}">
-        <img src=${image} alt="" onclick="window.location.href='sproduct.html'">
+        <img src=${image} alt="" class="js-product-image" data-product-id="${product.id}">
         <div class="description">
             <span>${brand}</span>
             <h5>${name}</h5>
@@ -19,11 +19,28 @@ const productsHTML = products.map((product) => {
             <h4>Ksh ${priceCents}</h4>
         </div>
         <i class="fal fa-shopping-cart cart js-add-to-cart" data-product-id="${product.id}"></i>
-        </div> 
+        </div>  
         `
         
 }).join("");
 shopProducts.innerHTML = productsHTML
+
+function fetchAndLoadFiles() {
+    // Fetch the HTML single sproduct file
+    const fileUrl = 'sproduct.html';
+    window.location.href = fileUrl;
+}
+
+// Add event listener to the button
+const productCards = document.querySelectorAll('.js-product-image');
+productCards.forEach((card) => {
+    card.addEventListener('click', () => {
+        const { dataset: { productId } } = card;
+        localStorage.setItem('productId', JSON.stringify(productId));
+        fetchAndLoadFiles()
+       
+    });
+})
 
 document.querySelectorAll('.js-add-to-cart')
     .forEach((button) => {

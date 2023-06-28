@@ -1,14 +1,14 @@
 const cart = JSON.parse(localStorage.getItem('cart')) || []
-   
+
 
 
 const featuredProducts = document.querySelector('.js-featured-products')
 const featuredProductsHTML = products.slice(0, 4).map((product) => {
     const { id, image, name, rating, priceCents, brand } = product
     return `
-        <div class="product js-product-${id}">
-        <img src=${image} alt="" onclick="window.location.href='sproduct.html'">
-        <div class="description">
+    <div class="product js-product-${id}">
+    <img src=${image} alt="" class="js-product-image" data-product-id="${product.id}">
+    <div class="description">
             <span>${brand}</span>
             <h5>${name}</h5>
             <div class="star-rating">
@@ -55,9 +55,9 @@ document.querySelectorAll('.js-add-to-cart')
 renderCart()
 function renderCart() {
     let cartHTML = []
-    let cartAmount =0;
-    let shipping= 0;
-    let totalAmount=0;
+    let cartAmount = 0;
+    let shipping = 0;
+    let totalAmount = 0;
 
     cart.forEach((cartItem) => {
         const matchingProduct = products.find((product) => product.id === cartItem.productId)
@@ -69,7 +69,7 @@ function renderCart() {
             let itemHTML = `
           <tr>
             <td><i class="far fa-times-circle remove-cart-item" data-cart-product-id=${id}></i></td>
-            <td><img src="${image}" alt=""></td>
+            <td><img src="${image}" alt="" class="js-product-image" data-product-id=${id}></td>
             <td>${name}</td>
             <td>${priceCents}</td>
             <td><input type="number" value="${quantity}" class="js-cart-quantity-${id}"></td>
@@ -78,20 +78,20 @@ function renderCart() {
         `
             cartHTML += itemHTML
         }
-       
+
     });
-    if (cartAmount < 2000){
+    if (cartAmount < 2000) {
         shipping = 300
-        totalAmount = cartAmount+shipping
+        totalAmount = cartAmount + shipping
         document.querySelector('#shipping').innerHTML = `Ksh ${shipping}`;
 
-    } else{
-        shipping =0
-        totalAmount = cartAmount+shipping
+    } else {
+        shipping = 0
+        totalAmount = cartAmount + shipping
         document.querySelector('#shipping').innerHTML = 'Free';
 
     }
-    
+
     document.querySelector('.cart-table-items').innerHTML = cartHTML;
     document.querySelector('#cartAmount').innerHTML = `Ksh ${cartAmount}`;
     document.querySelector('#totalAmount').innerHTML = `Ksh ${totalAmount}`;
@@ -139,7 +139,22 @@ document.querySelector('.cart-table-items').addEventListener('change', (event) =
 });
 
 
+function fetchAndLoadFiles() {
+    // Fetch the HTML single sproduct file
+    const fileUrl = 'sproduct.html';
+    window.location.href = fileUrl;
+}
 
+// Add event listener to the button
+const productCards = document.querySelectorAll('.js-product-image');
+productCards.forEach((card) => {
+    card.addEventListener('click', () => {
+        const { dataset: { productId } } = card;
+        localStorage.setItem('productId', JSON.stringify(productId));
+        fetchAndLoadFiles()
+       
+    });
+})
 
 
 

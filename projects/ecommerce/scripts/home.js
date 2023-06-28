@@ -1,11 +1,10 @@
 const cart = JSON.parse(localStorage.getItem('cart')) || []
-
 const featuredProducts = document.querySelector('.js-featured-products')
 const featuredProductsHTML = products.slice(0, 4).map((product) => {
     const { id, image, name, rating, priceCents, brand } = product
     return `
         <div class="product js-product-${id}">
-        <img src=${image} alt="">
+        <img src=${image} alt="" class="js-product-image" data-product-id="${product.id}">
         <div class="description">
             <span>${brand}</span>
             <h5>${name}</h5>
@@ -26,7 +25,22 @@ const featuredProductsHTML = products.slice(0, 4).map((product) => {
 featuredProducts.innerHTML = featuredProductsHTML
 
 
+function fetchAndLoadFiles() {
+    // Fetch the HTML single sproduct file
+    const fileUrl = 'sproduct.html';
+    window.location.href = fileUrl;
+}
 
+// Add event listener to the button
+const productCards = document.querySelectorAll('.js-product-image');
+productCards.forEach((card) => {
+    card.addEventListener('click', () => {
+        const { dataset: { productId } } = card;
+        localStorage.setItem('productId', JSON.stringify(productId));
+        fetchAndLoadFiles()
+       
+    });
+})
 
 
 document.querySelectorAll('.js-add-to-cart')
@@ -60,4 +74,3 @@ document.querySelectorAll('.js-add-to-cart')
 
 
     });
-
