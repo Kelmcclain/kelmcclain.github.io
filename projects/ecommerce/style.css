@@ -339,7 +339,8 @@ body {
   bottom: 20px;
   right: 10px;
 }
-#product1 .product .cart:hover{
+
+#product1 .product .cart:hover {
   background-color: var(--sec-bg-color);
   color: white;
 }
@@ -919,12 +920,12 @@ footer .copyright {
   white-space: nowrap;
 }
 
-.remove-cart-item{
+.remove-cart-item {
   font-size: 16px;
   transition: .1s ease-in-out;
 }
 
-.remove-cart-item:hover{
+.remove-cart-item:hover {
   cursor: pointer;
   color: red;
   transform: scale(1.1);
@@ -932,6 +933,15 @@ footer .copyright {
 
 #cart table img {
   width: 70px;
+  transition: .3s ease-in-out;
+  border-radius: 2px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#cart table img:hover {
+  transform: scale(1.05);
+  box-shadow: 2px 2px 4px rgba(1, 63, 1, 0.527);
+
 }
 
 #cart table td:nth-child(1) {
