@@ -25,3 +25,34 @@ const productsHTML = products.map((product) => {
 }).join("");
 shopProducts.innerHTML = productsHTML
 
+document.querySelectorAll('.js-add-to-cart')
+    .forEach((button) => {
+        button.addEventListener('click', () => {
+            const { dataset: { productId } } = button;
+            let quantity = 1
+
+            let matchingItem;
+            cart.forEach((item) => {
+                if (productId === item.productId) {
+                    matchingItem = item;
+                }
+            });
+
+            if (matchingItem) {
+                matchingItem.quantity += 1;
+            } else {
+                cart.push({ productId, quantity });
+            }
+
+            let cartQuantity = 0;
+            cart.forEach((item) => {
+                cartQuantity += item.quantity;
+
+            })
+            document.querySelector('.js-cart-quantity')
+                .innerHTML = cartQuantity
+            localStorage.setItem('cart', JSON.stringify(cart));
+        });
+
+
+    });

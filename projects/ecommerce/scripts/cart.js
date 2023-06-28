@@ -45,16 +45,9 @@ document.querySelectorAll('.js-add-to-cart')
             } else {
                 cart.push({ productId, quantity });
             }
-
-            let cartQuantity = 0;
-            cart.forEach((item) => {
-                cartQuantity += item.quantity;
-
-            })
-            document.querySelector('.js-cart-quantity')
-                .innerHTML = cartQuantity
             localStorage.setItem('cart', JSON.stringify(cart));
-            renderCart() 
+            renderCart()
+            updateCartCount()
         });
     });
 
@@ -90,13 +83,11 @@ function renderCart() {
     if (cartAmount < 2000){
         shipping = 300
         totalAmount = cartAmount+shipping
-        console.log(cartAmount)
         document.querySelector('#shipping').innerHTML = `Ksh ${shipping}`;
 
     } else{
         shipping =0
         totalAmount = cartAmount+shipping
-        console.log(shipping)
         document.querySelector('#shipping').innerHTML = 'Free';
 
     }
@@ -121,6 +112,8 @@ document.querySelector('.cart-table-items').addEventListener('click', (event) =>
         const productId = event.target.dataset.cartProductId;
         removeCartItem(productId);
         renderCart();
+        updateCartCount()
+
         localStorage.setItem('cart', JSON.stringify(cart));
     }
 });
