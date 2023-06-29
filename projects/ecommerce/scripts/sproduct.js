@@ -26,13 +26,6 @@ if (matchingProduct) {
             <h6>${brand}</h6>
             <h4>${name}</h4>
             <h2>KSH ${priceCents}</h2>
-            <select>
-                <option>Select size</option>
-                <option>XL</option>
-                <option>XXL</option>
-                <option>Small</option>
-                <option>Large</option>
-            </select>
             <input type="number" value="1" class="js-prod-quantity">
             <button class="normal js-add-to-cart">Add To Cart</button>
             <h4>Product Details</h4>

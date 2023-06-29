@@ -67,14 +67,25 @@ function renderCart() {
             const subtotal = priceCents * quantity;
             cartAmount += subtotal
             let itemHTML = `
-          <tr>
-            <td><i class="far fa-times-circle remove-cart-item" data-cart-product-id=${id}></i></td>
-            <td><img src="${image}" alt="" class="js-product-image" data-product-id=${id}></td>
-            <td>${name}</td>
-            <td>${priceCents}</td>
-            <td><input type="number" value="${quantity}" class="js-cart-quantity-${id}"></td>
-            <td  class="js-product-subtotal">${subtotal}</td>
-          </tr>
+
+            <div id="cart-grid">
+            <div class="cart-first-column">
+                
+                <img src="${image}" alt="" class="js-product-image" data-product-id=${id}>
+                <p class="remove-cart-item" data-cart-product-id=${id}>Remove <i class="far fa-trash" ></i></p>
+                
+            </div>
+            <div  class="cart-second-column">${name}</div>
+            <div class="cart-third-column">
+                <div>Quantity: <input type="number" value="${quantity}" class="js-cart-quantity-${id}">
+                <h3>Ksh: ${priceCents}</h3>
+                <div class="js-product-subtotal">KSh ${subtotal}</div>
+                </div>
+
+            </div>            
+        </div>
+            
+          
         `
             cartHTML += itemHTML
         }
