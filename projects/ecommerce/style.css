@@ -9,8 +9,8 @@
 }
 
 :root {
-  --primary-bg-color: #e3f3e5;
-  --sec-bg-color: #004900;
+  --primary-bg-color: #d6e7e9;
+  --sec-bg-color: #033f47;
   --text-color: #222;
   --sec-text-color: #2f3131;
   --grey: #606063;
@@ -285,6 +285,7 @@ body {
   margin: 15px 0;
   transition: .3s ease;
   position: relative;
+  
 }
 
 #product1 .product:hover {
@@ -296,6 +297,8 @@ body {
 #product1 .product img {
   width: 100%;
   border-radius: 20px;
+  user-select: none;
+
 }
 
 #product1 .product .description {
