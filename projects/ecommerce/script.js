@@ -16,8 +16,6 @@ if (close) {
     })
 }
 
-
-
 const singleProductsNav = document.getElementsByClassName("product");
 for (let i = 0; i < singleProductsNav.length; i++) {
     products[i].onclick = function () {

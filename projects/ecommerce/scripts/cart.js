@@ -75,11 +75,14 @@ function renderCart() {
                 <p class="remove-cart-item" data-cart-product-id=${id}>Remove <i class="far fa-trash" ></i></p>
                 
             </div>
-            <div  class="cart-second-column">${name}</div>
+            <div  class="cart-second-column">
+            <h3>${name}</h3>
+            <h3>Ksh ${priceCents}</h3>
+            </div>
             <div class="cart-third-column">
-                <div>Quantity: <input type="number" value="${quantity}" class="js-cart-quantity-${id}">
-                <h3>Ksh: ${priceCents}</h3>
-                <div class="js-product-subtotal">KSh ${subtotal}</div>
+
+                <div>Quantity <input type="number" value="${quantity}" class="js-cart-quantity-${id}">
+                <div class="js-product-subtotal">Subtotal KSh ${subtotal}</div>
                 </div>
 
             </div>            

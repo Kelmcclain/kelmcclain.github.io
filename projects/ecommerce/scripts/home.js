@@ -17,6 +17,7 @@ const featuredProductsHTML = products.slice(0, 4).map((product) => {
             </div>
             <h4>Ksh ${priceCents}</h4>
         </div>
+        <p class="added-popup"></p>
         <i class="fal fa-shopping-cart cart js-add-to-cart" data-product-id="${product.id}"></i>
         </div> 
         `
@@ -70,6 +71,7 @@ document.querySelectorAll('.js-add-to-cart')
             document.querySelector('.js-cart-quantity')
                 .innerHTML = cartQuantity
             localStorage.setItem('cart', JSON.stringify(cart));
+
         });
 
 
