@@ -331,10 +331,13 @@ body {
 
  .added-popup{
   position: absolute;
-  bottom: 0px;
+  padding: 5px;
+  bottom: -2px;
   right: 60px;
   font-size: 12px;
-  color: orange;
+  color: rgb(255, 255, 255);
+  background-color: var(--sec-bg-color);
+  border-radius: 5px;
 }
 
 #product1 .product .cart {
@@ -1241,6 +1244,13 @@ border-bottom: 1px solid rgb(199, 199, 199);
     right: 7px;
   }
 
+  .added-popup{
+
+    bottom: -10px;
+    right: 40px;
+    font-size: 12px;
+  
+  }
   #banner {
     height: 40vh;
   }

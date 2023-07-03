@@ -17,7 +17,6 @@ const featuredProductsHTML = products.slice(0, 4).map((product) => {
             </div>
             <h4>Ksh ${priceCents}</h4>
         </div>
-        <p class="added-popup"></p>
         <i class="fal fa-shopping-cart cart js-add-to-cart" data-product-id="${product.id}"></i>
         </div> 
         `
@@ -72,6 +71,15 @@ document.querySelectorAll('.js-add-to-cart')
                 .innerHTML = cartQuantity
             localStorage.setItem('cart', JSON.stringify(cart));
 
+            const parentElement = button.parentElement
+            const addedElement = document.createElement('p')
+            addedElement.innerHTML = "Added"
+            addedElement.classList.add('added-popup')
+            parentElement.appendChild(addedElement)
+
+            setTimeout(function() {
+                parentElement.removeChild(addedElement);
+              }, 1000);
         });
 
 

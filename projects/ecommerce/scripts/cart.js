@@ -48,6 +48,16 @@ document.querySelectorAll('.js-add-to-cart')
             localStorage.setItem('cart', JSON.stringify(cart));
             renderCart()
             updateCartCount()
+            
+            const parentElement = button.parentElement
+            const addedElement = document.createElement('p')
+            addedElement.innerHTML = "Added"
+            addedElement.classList.add('added-popup')
+            parentElement.appendChild(addedElement)
+
+            setTimeout(function() {
+                parentElement.removeChild(addedElement);
+              }, 1000);
         });
     });
 
