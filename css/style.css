@@ -86,6 +86,7 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    height: 100vh;
 
 
 }
@@ -93,8 +94,9 @@ body {
 .home-img img {
     width: 35vw;
     animation: floatImage 4s ease-in-out infinite;
-    border-bottom-left-radius: 50%;
-    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 300px;
+    border-bottom-right-radius: 300px;
+    max-width: 350px;
 }
 
 @keyframes floatImage {
@@ -185,10 +187,15 @@ span {
     align-items: center;
     gap: 2rem;
     background-color: var(--second-bg-color);
+    height: 100vh;
 }
 
 .about-img img {
     width: 35vw;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    max-width: 350px;
+
 }
 
 .heading {
@@ -231,6 +238,10 @@ span {
 
 
 /* Services page design */
+
+.services{
+    height: 100vh;
+}
 
 .services h2 {
     margin-bottom: 5rem;
@@ -276,6 +287,7 @@ span {
 
 .portfolio {
     background: var(--second-bg-color);
+    height: 100vh;
 }
 
 .portfolio h2 {
@@ -460,10 +472,13 @@ span {
 
     .services {
         padding-bottom: 7rem;
+        height: auto;
+
     }
 
     .portfolio {
         padding-bottom: 7rem;
+
     }
 
     .contact {
@@ -505,6 +520,7 @@ span {
 
     .home {
         flex-direction: column;
+        height: auto;
     }
 
     .home-content h3 {
@@ -522,6 +538,9 @@ span {
 
     .about {
         flex-direction: column-reverse;
+        height: auto;
+        min-height: 100vh;
+
     }
 
     .about img {
@@ -544,6 +563,9 @@ span {
 
 
 @media (max-width: 768px) {
+    .portfolio{
+        height: auto;
+    }
     .portfolio-container {
         grid-template-columns: 1fr;
     }
@@ -560,6 +582,9 @@ span {
 }
 
 @media (max-width: 365px) {
+    .portfolio{
+        height: auto;
+    }
     .home-img img {
         width: 90vw;
     }
