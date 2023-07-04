@@ -302,6 +302,7 @@ span {
 }
 
 .portfolio-container .portfolio-box {
+    max-width: 450px;
     position: relative;
     border-radius: 2rem;
     box-shadow: 0 0 1rem var(--bg-color);
@@ -358,11 +359,21 @@ span {
     height: 5rem;
     background: var(--text-color);
     border-radius: 50%;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, .2);
+
 }
 
-.portfolio-layer a i {
+
+.portfolio-layer a i{
     font-size: 2rem;
     color: var(--second-bg-color);
+    transition: .2s ease;
+
+
+}
+
+.portfolio-layer a i:hover{
+    color: rgb(0, 157, 255);
 }
 
 .contact h2 {
