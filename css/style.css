@@ -92,12 +92,15 @@ body {
 }
 
 .home-img img {
+    display: block;
     width: 35vw;
     animation: floatImage 4s ease-in-out infinite;
     border-bottom-left-radius: 300px;
     border-bottom-right-radius: 300px;
     max-width: 350px;
 }
+
+
 
 @keyframes floatImage {
     0% {
@@ -299,6 +302,7 @@ span {
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
     gap: 2.5rem;
+    
 }
 
 .portfolio-container .portfolio-box {
