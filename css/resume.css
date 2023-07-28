@@ -84,6 +84,11 @@ body {
     padding-bottom: 10px;
 }
 
+.card-content table td a{
+    text-decoration: none;
+    color: black;
+}
+
 .skills-container,
 .header h3 {
     text-align: center;
