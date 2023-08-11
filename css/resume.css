@@ -11,6 +11,32 @@
 
 }
 
+
+/* scrollbar on the root <html> or <body> element */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 12px; 
+}
+
+/* Track */
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: var(--second-bg-color); 
+}
+
+/* Handle */
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background: #526d72; 
+  border-radius: 6px;
+}
+
+/* Handle on hover */
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background: #6e9197;
+}
+
 body {
     background-color: var(--bg-color);
     display: flex;
