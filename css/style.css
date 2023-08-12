@@ -29,7 +29,7 @@ html {
 /* scrollbar on the root <html> or <body> element */
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
-  width: 12px; 
+  width: 6px; 
 }
 
 /* Track */
