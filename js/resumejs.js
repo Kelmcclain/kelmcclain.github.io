@@ -1,3 +1,20 @@
+/*=============Scroll reveal===============*/
+ScrollReveal({
+    /*reset: true,*/
+    distance: '80px',
+    duration: 1000,
+    delay: 200,
+});
+
+// ScrollReveal().reveal('.left-reveal', { origin: 'left' });
+
+ScrollReveal().reveal('.right-reveal', { origin: 'right' });
+
+
+
+
+
+
 let skillsArray = [];
 
 class Skill {
