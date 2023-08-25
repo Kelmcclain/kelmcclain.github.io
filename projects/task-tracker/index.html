@@ -1,0 +1,87 @@
+<html>
+<html lang="eng">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!--Box icon-->
+    <title>Le Traqueur</title>
+    <!--Custom css-->
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+    <section>
+        <div class="header">
+            <h2>Le Traqueur</h2>
+        </div>
+    </section>
+    <section id="body-section">
+        <div class="container">
+            <div>
+                <div class="timer">00:00:00</div>
+
+                <p class="incident-Element"></p>
+            </div>
+            <div class="container-btns">
+                <button id="startButton" class="button js-increment">+1</button>
+                <button class="button js-decrement">-1</button>
+            </div>
+            <div class="util">
+                <button class="button js-reset">Reset</button>
+            </div>
+
+            <div class="popup" id="popup">
+                <div class="popup-content">
+                    <p>Are you sure?</p>
+                    <button id="yesButton">Yes</button>
+                    <button id="noButton">No</button>
+                </div>
+            </div>
+            <div class="weekly-avg">Weekly Average:</div>
+        </div>
+        <div class="records-container">
+            <div class="js-input-grid">
+                <input type="Date" class="js-date-input" placeholder="Day">
+                <input type="number" class="js-count-input" placeholder="Incidents">
+                <button class="button js-add-record-btn">Add</button>
+            </div>
+            <div class="js-records-grid">
+            </div>
+        </div>
+        <div class="stats">
+            <div class="stats-leading">
+                <h4>Statistics</h4>
+                <button class="button js-graph">Graph</button> 
+                <!-- <button class="button js-clear-stats">Clear Stats</button> -->
+
+            </div>
+            <div class="js-stats">
+                <div class="table-container">
+                    <table id="incident-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Incidents</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            <!-- Table content will be added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

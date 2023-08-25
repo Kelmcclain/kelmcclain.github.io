@@ -2,65 +2,53 @@
 
 
 :root {
-    --primary-color: #034d40;
-    --secondary-color: #189d9d;
-    --accent-color: #c4eeee;
-    --text-color-dark: #000000;
+    --primary-color: #22273b;
+    --secondary-color: #31374e;
+    --accent-color: #454c67;
+    --text-color-dark: #2e2e2f;
     --text-color-light: #ffffff;
 
 }
 
-:root {
-    /* Theme 1: Blue */
-    --theme1-dark: #1c394e;
-    --theme1-medium: #4fa1ca;
-    --theme1-light: #b7e0f1;
-
-    /* Theme 2: Red */
-    --theme2-dark: #2c0f0f;
-    --theme2-medium: #862323;
-    --theme2-light: #d1d1d1;
-
-    /* Theme 3: Green */
-    --theme3-dark: #0f250c;
-    --theme3-medium: #5c8e51;
-    --theme3-light: #d6f8d8;
-
-    /* Theme 4: Purple */
-    --theme4-dark: #270f2b;
-    --theme4-medium: #8c4d8f;
-    --theme4-light: #f1d8f8;
-
-    /* Theme 5: Orange */
-    --theme5-dark: #492e07;
-    --theme5-medium: #d08c2a;
-    --theme5-light: #fff5d7;
-
-    /* Theme 6: Teal */
-    --theme6-dark: #013129;
-    --theme6-medium: #189d9d;
-    --theme6-light: #c4eeee;
-
-    /* Theme 7: Gray */
-    --theme7-dark: #222222;
-    --theme7-medium: #666;
-    --theme7-light: #e6e6e6;
+/* scrollbar on the root <html> or <body> element */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    width: 6px;
 }
 
+/* Track */
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+    background: var(--secondary-color);
+}
 
+/* Handle */
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 6px;
+}
 
+/* Handle on hover */
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
 
 body {
-    overflow: hidden;
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    background: var(--primary-color);
     font-size: 18px;
     margin: 0;
     font-family: 'Ubuntu', sans-serif;
     font-weight: 300;
+    color: var(--text-color-light);
+
 }
 
-body p {
-    color: var(--text-color);
+h4 {
+    margin: 5px;
 }
 
 .header {
@@ -68,8 +56,8 @@ body p {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    color: white;
+    background: var(--secondary-color);
+    color: var(--text-color-light);
     box-shadow: 0 0 5px 0 rgb(35, 40, 44);
 
 }
@@ -78,11 +66,17 @@ body p {
     padding: 25px;
     font-size: 30px;
     transition: .3s ease;
+    color: rgb(137, 137, 137);
+
 }
 
-.header i:hover{
-    color: gold;
-    transform: scale(1.2);
+.header i:hover {
+    color: rgb(255, 255, 255);
+}
+
+.timer {
+    font-size: 26px;
+    margin-bottom: 20px;
 }
 
 
@@ -92,34 +86,91 @@ body p {
 }
 
 .container,
-.records-container {
+.records-container,
+.stats {
     margin: 20px;
     background-color: var(--accent-color);
     border-radius: 10px;
     padding: 20px;
     transition: 0.3s ease;
+    width: auto;
 }
 
 .container-btns {
     margin-bottom: 10px;
 }
 
+select {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
 .button {
     width: 100px;
     padding: 10px 15px;
-    background:  var(--primary-color);
-    color: aliceblue;
+    background: var(--secondary-color);
+    color: var(--text-color-light);
     border: none;
     border-radius: 10px;
-    font-size: 18px;
     margin-right: 10px;
+    box-shadow: 2px 1px 8px var(--primary-color);
     transition: 0.3s ease;
 }
 
 
 .button:hover {
     background: #333e5c;
-    box-shadow: 2px 2px 4px #333e5c;
+}
+
+.util {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.util .button {
+    width: fit-content;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in-out;
+
+}
+
+.popup-content {
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.popup button {
+    margin: 5px;
+    background-color: var(--accent-color);
+    color: white;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .js-increment,
@@ -135,9 +186,9 @@ body p {
 
 .js-input-grid,
 .js-records-grid {
-    width: 380px;
+    width: auto;
     display: grid;
-    grid-template-columns: 100px 90px 70px 70px;
+    grid-template-columns: 130px 90px 70px;
     column-gap: 10px;
     row-gap: 10px;
     align-items: stretch;
@@ -147,10 +198,16 @@ body p {
     padding: 10px 15px;
     font-size: 15px;
     margin: 0;
-    color: #12304b;
-    border: 1px solid #b1dbe7;
+    color: var(--text-color-light);
+    border: 1px solid var(--accent-color);
     border-radius: 10px;
-    background-color: rgb(255, 255, 255);
+    background-color: #5f6788;
+    transition: .5s ease;
+}
+
+.js-records-grid p:hover {
+    border: 1px solid #b1dbe7;
+
 }
 
 .js-input-grid {
@@ -158,7 +215,8 @@ body p {
 }
 
 .js-day-input,
-.js-count-input {
+.js-count-input,
+.js-date-input {
     padding: 10px;
     outline: none;
     border-radius: 10px;
@@ -185,6 +243,42 @@ button {
     outline: none;
     border: none;
 }
+
+table {
+    display: table;
+    border-spacing: 10px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+    width: 100%;
+}
+
+#incident-table thead {
+    background-color: var(--accent-color);
+}
+.stats {min-width: 340px;}
+
+.stats-leading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.stats .button{
+    width: fit-content;
+    margin: 20px 10px;
+}
+
+#myChart {
+  height: auto;
+  width: fit-content;
+    background-color: var(--text-color-light);
+    border-radius: 5px;
+}
+
+
+
 
 
 @media (max-width: 477px) {
@@ -243,7 +337,7 @@ button {
 
     .js-input-grid,
     .js-records-grid {
-        grid-template-columns: 100px 100px 70px 70px;
+        grid-template-columns: 130px 100px 70px;
         column-gap: 10px;
         row-gap: 10px;
         align-items: stretch;

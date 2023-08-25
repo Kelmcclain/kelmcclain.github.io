@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+:root {
+    --primary-color: #22273b;
+    --secondary-color: #31374e;
+    --accent-color: #454c67;
+    --text-color-dark: #2e2e2f;
+    --text-color-light: #ffffff;
+
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    background: var(--primary-color);
+    font-size: 18px;
+    margin: 0;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 300;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+}
+
+h2 {
+    color: var(--text-color-light);
+}
+
+.login-form,
+.registration-form {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    background: var(--secondary-color);
+    width: 50vh;
+    height: auto;
+    min-height: 20vh;
+    border-radius: 10px;
+    padding: 20px;
+
+}
+
+input {
+    background: var(--accent-color);
+    padding: 0;
+    height: 2rem;
+    width: 45vh;
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    margin: 10px;
+    outline: none;
+    padding: 5px;
+    color: var(--text-color-light);
+    transition: .3s ease;
+
+
+}
+
+input:focus {
+    border: 1px solid lightblue;
+
+}
+
+button {
+    width: 100px;
+    padding: 10px 15px;
+    background: var(--accent-color);
+    color: var(--text-color-light);
+    border: 1px solid var(--accent-color);
+    border-radius: 10px;
+    margin-right: 10px;
+    transition: 0.3s ease;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+button:hover {
+    border: 1px solid lightblue;
+}

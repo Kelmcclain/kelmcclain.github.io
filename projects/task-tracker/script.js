@@ -12,6 +12,7 @@ document.addEventListener('keydown', (event) => {
     if (event.key === '+') {
         incrementIncident();
         renderHTML();
+        startTimer()
     }
 });
 function incrementIncident() {
@@ -39,18 +40,36 @@ function decrementIncident() {
 }
 
 //Reset Hander
+const popup = document.getElementById('popup');
+const yesButton = document.getElementById('yesButton');
+const noButton = document.getElementById('noButton');
 document.querySelector('.js-reset').addEventListener('click', () => {
+    popup.style.display = 'flex';
+})
+
+yesButton.addEventListener('click', () => {
+    console.log('Incidents Cleared');
     localStorage.removeItem('incidents')
     totalIncidents.incidents = 0
     renderHTML()
-})
+    closePopup();
+});
+
+noButton.addEventListener('click', () => {
+    console.log('Code execution cancelled.');
+    closePopup();
+});
+
+function closePopup() {
+    popup.style.display = 'none';
+}
 
 
 //HTML Renderer
 function renderHTML() { totalIncElement.innerHTML = `Total Incidents: ${totalIncidents.incidents}` }
 
 //Records 
-
+const dateInputElement = document.querySelector('.js-date-input')
 const dayInputElement = document.querySelector('.js-day-input')
 const countInputElement = document.querySelector('.js-count-input')
 const addRecordButton = document.querySelector('.js-add-record-btn')
@@ -70,7 +89,7 @@ countInputElement.addEventListener('keydown', (event) => {
 })
 
 const records = JSON.parse(localStorage.getItem('records')) || []
-console.log(records)
+const persistenceModule = JSON.parse(localStorage.getItem('persistenceModule')) || []
 const weeklyrecords = JSON.parse(localStorage.getItem('weeklyrecords')) || {
     monday: 0,
     tuesday: 0,
@@ -84,11 +103,13 @@ const weeklyrecords = JSON.parse(localStorage.getItem('weeklyrecords')) || {
 renderRecords()
 function addRecord() {
     const record = {
+        date: '',
         day: '',
         incidentCount: 0,
     }
-
-    record.day = dayInputElement.value;
+    record.date = dateInputElement.value;
+    const dateObj = new Date(record.date);
+    record.day = dateObj.toLocaleDateString('en-US', { weekday: 'long' })
     record.incidentCount = parseInt(countInputElement.value);
     if (!record.day && !record.incidentCount) {
         alert('Cannot add empty record')
@@ -100,18 +121,26 @@ function addRecord() {
         alert('incident count must be >= 0')
     } else {
         // Check if record with same day already exists
-        const existingRecordIndex = records.findIndex(r => r.day === record.day);
+        const existingRecordIndex = records.findIndex(r => r.date === record.date);
         if (existingRecordIndex >= 0) {
             records[existingRecordIndex] = record; // Update existing record
         } else {
             records.push(record); // Add new record
         }
+
+        // Check if record with same day already exists
+        const existingRecordPersistenceModule = persistenceModule.findIndex(r => r.date === record.date);
+        if (existingRecordPersistenceModule >= 0) {
+            persistenceModule[existingRecordPersistenceModule] = record; // Update existing record
+        } else {
+            persistenceModule.push(record); // Add new record to persistenceModule
+
+        }
     }
 
-    dayInputElement.value = '';
+    dateInputElement.value = '';
     countInputElement.value = '';
     renderRecords();
-    console.log(records);
 
     // Update weekly records with new or updated record's incident count
     const day = record.day.toLowerCase();
@@ -136,6 +165,8 @@ function addRecord() {
     weeklyAvergeElement.innerHTML = `Weekly Average: ${weeklyAverge.toFixed(1)}`;
 
     localStorage.setItem('records', JSON.stringify(records));
+    localStorage.setItem('persistenceModule', JSON.stringify(persistenceModule));
+
 }
 
 function renderRecords() {
@@ -146,7 +177,6 @@ function renderRecords() {
         const html = `
             <p>${record.day}</p>
             <p>${record.incidentCount}</p>
-            <button class="button js-editRecord" data-index="${index}">Edit</button>
             <button class="button js-deleteRecord">Delete</button>
         `
         recordsGridHTML += html
@@ -170,156 +200,194 @@ function renderRecords() {
         });
     }
 
-    document.querySelectorAll('.js-editRecord')
-        .forEach((editButton) => {
-            editButton.addEventListener('click', () => {
-                const index = editButton.dataset.index;
-                // open a dialog box or a form to edit the record
-                editRecord(index)
-            })
+}
+
+
+
+let timerInterval;
+let seconds = 0;
+let isRunning = false;
+
+function startTimer() {
+    clearInterval(timerInterval);
+    seconds = 0;
+    updateTimer();
+    timerInterval = setInterval(updateTimer, 1000);
+    isRunning = true;
+}
+
+function updateTimer() {
+    seconds++;
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    const formattedTime = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(remainingSeconds)}`;
+    const timerElement = document.querySelector('.timer');
+    timerElement.textContent = formattedTime;
+
+    // Set the color based on the number of seconds
+    timerElement.style.color = getColorForSeconds(seconds);
+}
+
+function formatTime(time) {
+    return time < 10 ? `0${time}` : time;
+}
+
+function getColorForSeconds(seconds) {
+    if (seconds < 60) {
+        return '#d4d4df'; // Change to the desired color for seconds < 60
+    } else if (seconds < 120) {
+        return '#64cb64'; // Change to the desired color for seconds >= 60 and < 120
+    } else if (seconds < 180) {
+        return 'orange'; // Change to the desired color for seconds >= 120 and < 180
+    } else {
+        return 'red'; // Change to the desired color for seconds >= 180
+    }
+}
+
+document.getElementById('startButton').addEventListener('click', startTimer);
+
+
+// Sample data for demonstration
+
+const tableBody = document.getElementById('table-body');
+
+// Function to render the table
+function renderTable(data) {
+    tableBody.innerHTML = '';
+    data.forEach(item => {
+        const row = document.createElement('tr');
+        const dateObj = new Date(item.date);
+        const dayOfWeek = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
+
+        row.innerHTML = `
+        <td>${item.date} (${dayOfWeek})</td>
+        <td>${item.incidentCount}</td>
+      `;
+        tableBody.appendChild(row);
+    });
+}
+
+// Initial rendering
+renderTable(persistenceModule);
+
+// Function to calculate weekly averages
+function calculateWeeklyAverages(data) {
+    const weeklyAverages = [];
+    let weekStartIndex = 0;
+    let weekEndIndex = 0;
+    let currentWeekTotal = 0;
+
+    while (weekEndIndex < data.length) {
+        currentWeekTotal += data[weekEndIndex].incidentCount;
+
+        const weekStartDate = new Date(data[weekStartIndex].date);
+        const weekEndDate = new Date(data[weekEndIndex].date);
+
+        if (weekEndDate.getDay() === 6) { // Assuming Saturday is the end of the week
+            const average = currentWeekTotal / 7;
+            weeklyAverages.push(average.toFixed(2));
+
+            currentWeekTotal = 0;
+            weekStartIndex = weekEndIndex + 1;
+        }
+
+        weekEndIndex++;
+    }
+
+    return weeklyAverages;
+}
+// Function to update table with weekly averages
+function updateTableWithAverages() {
+    const weeklyAverages = calculateWeeklyAverages(persistenceModule);
+    const tableRows = tableBody.querySelectorAll('tr');
+
+    tableRows.forEach((row, index) => {
+        const cell = document.createElement('td');
+        cell.textContent = index < weeklyAverages.length ? weeklyAverages[index] : '';
+        row.appendChild(cell);
+    });
+}
+
+// Call function to update table with weekly averages
+updateTableWithAverages();
+
+
+//Render Stats Graph
+const graphButton = document.querySelector('.js-graph')
+graphButton.addEventListener('click', () => {
+
+    if (graphButton.innerHTML === 'Graph') {
+        graphButton.innerHTML = 'Stats'
+        document.querySelector('.js-stats').innerHTML = `
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>`
+
+        const ctx = document.getElementById('myChart');
+        const labels = persistenceModule.map(item => item.date);
+        const incidentCounts = persistenceModule.map(item => item.incidentCount);
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Incident Count',
+                    data: incidentCounts,
+                    borderWidth: .5,
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
         });
+    } else {
+        graphButton.innerHTML = 'Graph'
+        document.querySelector('.js-stats').innerHTML = `
+        <div class="table-container">
+                    <table id="incident-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Incidents</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            <!-- Table content will be added here -->
+                        </tbody>
+                    </table>
+                </div>`
 
-    // update local storage after records are rendered
-    localStorage.setItem('records', JSON.stringify(records))
-}
+        const tableBody = document.getElementById('table-body');
 
-function editRecord(index) {
-    // create a dialog box or form
-    const dialogBox = document.createElement('div')
-    dialogBox.classList.add('dialog-box')
+        // Function to render the table
+        function renderTable(data) {
+            tableBody.innerHTML = '';
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                const dateObj = new Date(item.date);
+                const dayOfWeek = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
 
-    const record = records[index]
-    const day = record.day.toLowerCase()
-    const incidentCount = record.incidentCount;
-
-    // create input fields for day and incident count
-    const dayInput = document.createElement('input')
-    dayInput.type = 'text'
-    dayInput.value = record.day
-
-    const countInput = document.createElement('input')
-    countInput.type = 'number'
-    countInput.classList.add('new-count-input');
-    countInput.value = record.incidentCount
-
-
-    // create a submit button
-    const submitButton = document.createElement('button')
-    submitButton.textContent = 'Save'
-    submitButton.addEventListener('click', () => {
-        saveNewInput();
-    })
-
-    function saveNewInput() {
-        const newDay = dayInput.value.toLowerCase();
-        const newIncidentCount = parseInt(countInput.value);
-
-        if (newDay && newIncidentCount) {
-            // Update the record object
-            record.day = newDay;
-            record.incidentCount = newIncidentCount;
-
-            // Update the weeklyrecords object
-            weeklyrecords[day] -= incidentCount;
-            weeklyrecords[newDay] += newIncidentCount;
-
-            // Render the updated records
-            renderRecords();
-
-            // Save the updated records to local storage
-            localStorage.setItem('records', JSON.stringify(records));
-            localStorage.setItem('weeklyrecords', JSON.stringify(weeklyrecords));
-            console.log('Records updated:', weeklyrecords);
+                row.innerHTML = `
+                        <td>${item.date} (${dayOfWeek})</td>
+                        <td>${item.incidentCount}</td>
+                      `;
+                tableBody.appendChild(row);
+            });
         }
-        // close the dialog box or form
-        dialogBox.remove()
+        renderTable(persistenceModule)
     }
 
-
-    // create a cancel button
-    const cancelButton = document.createElement('button')
-    cancelButton.textContent = 'Cancel'
-    cancelButton.addEventListener('click', () => {
-        // close the dialog box or form
-        dialogBox.remove()
-    })
-
-    // add the input fields and buttons to the dialog box or form
-    dialogBox.appendChild(dayInput)
-    dialogBox.appendChild(countInput)
-    dialogBox.appendChild(submitButton)
-    dialogBox.appendChild(cancelButton)
-
-
-
-    // add the dialog box or form to the page
-    document.querySelector('.records-container').appendChild(dialogBox)
-    document.querySelector('.new-count-input').addEventListener('keypress',(event)=> {
-        keypressed = event.key
-        if (keypressed === 'Enter'){
-            saveNewInput();
-        }
-    })
-
-}
-
-//Daily Theme Selector
-const today = new Date().getDay();
-// Define an array of color themes, with one for each day of the week
-const colorThemes = [
-    {
-        primary: '#1c394e',
-        secondary: '#4fa1ca',
-        accent: '#f2ffff'
-    },
-    {
-        primary: '#4d1616',
-        secondary: '#862323',
-        accent: '#d1d1d1'
-    },
-    {
-        primary: '#1c4417',
-        secondary: '#5c8e51',
-        accent: '#d6f8d8'
-    },
-    {
-        primary: '#401847',
-        secondary: '#8c4d8f',
-        accent: '#f1d8f8'
-    },
-    {
-        primary: '#4e3410',
-        secondary: '#d08c2a',
-        accent: '#fff5d7'
-    },
-    {
-        primary: '#034d40',
-        secondary: '#189d9d',
-        accent: '#c4eeee'
-    },
-    {
-        primary: '#222222',
-        secondary: '#666',
-        accent: '#e6e6e6'
-    }
-];
-
-// Set the color theme based on the current day of the week
-document.documentElement.style.setProperty('--primary-color', colorThemes[today].primary);
-document.documentElement.style.setProperty('--secondary-color', colorThemes[today].secondary);
-document.documentElement.style.setProperty('--accent-color', colorThemes[today].accent);
-
-const themeIconElement = document.querySelector('.theme-switch');
-
-//Theme Switch Button 
-let currentTheme = today;
-themeIconElement.addEventListener('click', () => {
-    if (currentTheme === 6) {
-        currentTheme = -1;
-    }
-    currentTheme += 1;
-    document.documentElement.style.setProperty('--primary-color', colorThemes[currentTheme].primary);
-    document.documentElement.style.setProperty('--secondary-color', colorThemes[currentTheme].secondary);
-    document.documentElement.style.setProperty('--accent-color', colorThemes[currentTheme].accent);
 })
 
+document.querySelector('.js-clear-stats').addEventListener('click', () => {
+    localStorage.removeItem('persistenceModule');
+
+
+})

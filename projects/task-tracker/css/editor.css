@@ -1,0 +1,72 @@
+:root {
+    --primary-color: #27343b;
+    --secondary-color: #475558;
+    --accent-color: #242a2c;
+    --text-color-dark: #29292b;
+    --text-color-light: #e9e9e9;
+    --green-color: #02bcd4;
+    --blue-text: #0097e8;
+
+
+}
+
+h1 {
+    padding: 15px 0 0 15px;
+    color: white;
+    margin: 0;
+    font-size: 22px;
+}
+
+h3 {
+    padding-left: 20px;
+    padding-top: 10px;
+    margin: 0;
+    color: white;
+    font-weight: 500;
+}
+
+p {
+    padding-left: 20px;
+    padding-top: 10px;
+    font-size: 14px;
+    margin: 0;
+    color: var(--text-color-light);
+    font-weight: 200;
+}
+
+#editor {
+    display: flex;
+
+}
+
+#editor {
+    justify-content: stretch;
+    padding: 15px;
+}
+
+.editor {
+    margin: 20px;
+    padding: 10px;
+    width: 55vh;
+    height: 40vh;
+    margin-bottom: 10px;
+    background-color: var(--secondary-color);
+    color: var(--text-color-light);
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(19, 19, 20, 0.514);
+    transition: 0.5s ease;
+
+}
+
+.editor:hover {}
+
+.output {
+    margin: 20px;
+    width: 90vh;
+    height: 50vh;
+    overflow: scroll;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+}
