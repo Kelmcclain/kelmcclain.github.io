@@ -256,23 +256,27 @@ table {
 #incident-table thead {
     background-color: var(--accent-color);
 }
-.stats {min-width: 340px;}
 
-.stats-leading{
+.stats {
+    min-width: 340px;
+    min-height: 295px;
+}
+
+.stats-leading {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 10px;
 }
 
-.stats .button{
+.stats .button {
     width: fit-content;
     margin: 20px 10px;
 }
 
 #myChart {
-  height: auto;
-  width: fit-content;
+    height: auto;
+    width: fit-content;
     background-color: var(--text-color-light);
     border-radius: 5px;
 }
