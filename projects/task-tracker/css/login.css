@@ -81,3 +81,20 @@ button {
 button:hover {
     border: 1px solid lightblue;
 }
+
+
+@media (max-width: 477px) {
+
+    .login-form,
+    .registration-form {
+        width: 22rem;
+        min-height: 20vh;
+        border-radius: 10px;
+        padding: 10px 0;
+    }
+
+    input {
+        width: 300px;
+    }
+
+}
