@@ -29,13 +29,19 @@ const currentPage = window.location.pathname;
 
 if (currentPage == '/register.html') {
     document.querySelector('.register').addEventListener('click', register)
+    document.getElementById('password').addEventListener('keydown', (e)=>{
+    if(e.key === "Enter"){
+        register()
+    }
+    
+})
     document.querySelector('.login-btn').addEventListener('click', () => {
         window.location.href = '/login.html'
     });
 
 }
 
-// ...
+
 
 function register() {
     // Get all input fields
@@ -68,7 +74,7 @@ function register() {
             setDoc(userRef, user_data)
                 .then(() => {
                     alert('User Created');
-                    window.location.href = 'index.html'
+                    window.location.href = 'tracker.html'
                 })
                 .catch((error) => {
                     console.error('Error adding user data to Firestore:', error);
@@ -109,7 +115,7 @@ function login() {
             // Successfully logged in
             const user = userCredential.user;
             console.log('User logged in:', user);
-            window.location.href = 'index.html';
+            window.location.href = 'tracker.html';
         })
         .catch((error) => {
             // Handle login errors
@@ -163,14 +169,14 @@ function checkUserAuthStatus(callback) {
 checkUserAuthStatus((isUserLoggedIn) => {
     const currentPage = window.location.pathname;
 
-    if (!isUserLoggedIn && currentPage == '/index.html') {
+    if (!isUserLoggedIn && currentPage == '/tracker.html') {
         window.location.href = 'login.html';
     }
 });
 
 
 
-if (currentPage == '/index.html') {
+if (currentPage == '/tracker.html') {
     document.querySelector('.logout').addEventListener('click', logout);
 }
 // Log the user out
