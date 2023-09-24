@@ -27,7 +27,7 @@ const database = getFirestore();
 
 const currentPage = window.location.pathname;
 
-if (currentPage == '/register.html') {
+if (currentPage == '/projects/task-tracker/register.html') {
     document.querySelector('.register').addEventListener('click', register)
     document.getElementById('password').addEventListener('keydown', (e)=>{
     if(e.key === "Enter"){
@@ -74,7 +74,7 @@ function register() {
             setDoc(userRef, user_data)
                 .then(() => {
                     alert('User Created');
-                    window.location.href = 'tracker.html'
+                    window.location.href = '/projects/task-tracker/index.html'
                 })
                 .catch((error) => {
                     console.error('Error adding user data to Firestore:', error);
@@ -91,10 +91,10 @@ function register() {
 
 
 
-if (currentPage == '/login.html') {
+if (currentPage == '/projects/task-tracker/login.html') {
     document.querySelector('.login-btn').addEventListener('click', login);
     document.querySelector('.register-btn').addEventListener('click', () => {
-        window.location.href = '/register.html'
+        window.location.href = '/projects/task-tracker/register.html'
     });
 
 }
@@ -115,7 +115,7 @@ function login() {
             // Successfully logged in
             const user = userCredential.user;
             console.log('User logged in:', user);
-            window.location.href = 'tracker.html';
+            window.location.href = '/projects/task-tracker/index.html';
         })
         .catch((error) => {
             // Handle login errors
@@ -169,14 +169,14 @@ function checkUserAuthStatus(callback) {
 checkUserAuthStatus((isUserLoggedIn) => {
     const currentPage = window.location.pathname;
 
-    if (!isUserLoggedIn && currentPage == '/tracker.html') {
+    if (!isUserLoggedIn && currentPage == '/projects/task-tracker/index.html') {
         window.location.href = 'login.html';
     }
 });
 
 
 
-if (currentPage == '/tracker.html') {
+if (currentPage == '/projects/task-tracker/index.html') {
     document.querySelector('.logout').addEventListener('click', logout);
 }
 // Log the user out
@@ -185,7 +185,7 @@ function logout() {
         .then(() => {
             // User has been logged out
             console.log("User logged out");
-            window.location.href = 'login.html';
+            window.location.href = '/projects/task-tracker/login.html';
         })
         .catch((error) => {
             // Handle logout errors
