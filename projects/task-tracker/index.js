@@ -36,7 +36,7 @@ if (currentPage == '/projects/task-tracker/register.html') {
     
 })
     document.querySelector('.login-btn').addEventListener('click', () => {
-        window.location.href = '/login.html'
+        window.location.href = '/projects/task-tracker/login.html'
     });
 
 }
