@@ -18,6 +18,7 @@
     <section>
         <div class="header">
             <h2>Le Traqueur</h2>
+            <h4 class="currentUser"></h4>
             <i class='bx bx-log-out-circle logout'></i>
          </div>
     </section>
@@ -46,6 +47,7 @@
             <div class="weekly-avg">Weekly Average:</div>
         </div>
         <div class="records-container">
+            <img src="images/loading.png" alt="loading.." class="loading-image" id="loading-indicator">
             <div class="js-input-grid">
                 <input type="Date" class="js-date-input" placeholder="Day">
                 <input type="number" class="js-count-input" placeholder="Incidents">
@@ -55,10 +57,11 @@
             </div>
         </div>
         <div class="stats">
+            
             <div class="stats-leading">
                 <h4>Statistics</h4>
                 <button class="button js-graph">Graph</button> 
-                <button class="button js-clear-stats">Clear Stats</button>
+                <!-- <button class="button js-clear-stats">Clear Stats</button> -->
 
             </div>
             <div class="js-stats">
@@ -83,6 +86,7 @@
 
     <script src="script.js"></script>
     <script type="module" src="index.js"></script>
+    <script type="module" src="js/tracker.js"></script>
 
 </body>
 
