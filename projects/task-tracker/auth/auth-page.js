@@ -82,7 +82,7 @@ function register() {
             setDoc(userRef, user_data)
                 .then(() => {
                     alert('Account Created');
-                    window.location.href = '/'
+                    window.location.href = '/projects/task-tracker/index.html'
                 })
                 .catch((error) => {
                     console.error('Error adding user data to Firestore:', error);
@@ -124,7 +124,7 @@ function login() {
             // Successfully logged in
             const user = userCredential.user;
             console.log('User logged in:', user);
-            window.location.href = '/';
+            window.location.href = '/projects/task-tracker/index.html';
         })
         .catch((error) => {
             // Handle login errors
@@ -178,7 +178,7 @@ function checkUserAuthStatus(callback) {
 checkUserAuthStatus((isUserLoggedIn) => {
     const currentPage = window.location.pathname;
 
-    if (!isUserLoggedIn && currentPage == '/') {
+    if (!isUserLoggedIn && currentPage == '/projects/task-tracker/index.html') {
         window.location.href = '/projects/task-tracker/auth/login.html';
     }
 });
