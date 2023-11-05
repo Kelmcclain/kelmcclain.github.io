@@ -33,7 +33,6 @@ if (currentPage == '/projects/task-tracker/auth/register.html') {
         if (e.key === "Enter") {
             register()
         }
-
     })
     document.querySelector('.login-btn').addEventListener('click', () => {
         window.location.href = '/projects/task-tracker/auth/login.html'
