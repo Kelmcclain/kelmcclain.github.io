@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
 import {
     getFirestore, collection, onSnapshot, addDoc,
-    setDoc, doc, query, where, orderBy, getDocs, collectionGroup, updateDoc, deleteDoc
+    setDoc, doc, query, where, orderBy, getDocs, collectionGroup, updateDoc, deleteDoc, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 import {
     getAuth, createUserWithEmailAndPassword,
@@ -42,7 +42,15 @@ onAuthStateChanged(auth, (user) => {
 });
 
 
-
+document.addEventListener('DOMContentLoaded', function () {
+    // Hide the loading screen when the page is fully loaded
+    window.addEventListener('load', function () {
+      const loadingScreen = document.querySelectorAll('#loading-screen');
+      loadingScreen.forEach((screen)=>{
+        screen.style.display = 'none';
+      })
+    });
+  });
 
 
 //Records 
@@ -52,28 +60,26 @@ const addRecordButton = document.querySelector('.js-add-record-btn');
 const recordsElement = document.querySelector('.js-records-grid');
 const deleteRecordButton = document.querySelector('.js-add-record-btn');
 const weeklyAvergeElement = document.querySelector('.weekly-avg');
-const loadingIndicator = document.getElementById('loading-indicator'); 
 
 //Collection and Documents references
-// Initially, set the loading indicator to be visible
-loadingIndicator.style.display = 'flex';
 recordsElement.style.display = 'none';
 let localeRecords = []
 function getUserIncidents() {
     const userDocRef = doc(database, 'users', userUid)
     const usersColRef = collection(database, 'users')
     const dailyIncidentsColRef = collection(userDocRef, "daily_incidents");
+    const q = query(dailyIncidentsColRef, orderBy('createdAt', 'asc'))
+
 
 
     //render records to UI
-    onSnapshot(dailyIncidentsColRef, (snapshot) => {
+    onSnapshot(q, (snapshot) => {
         let records = []
         snapshot.docs.forEach((doc) => {
             records.push({ ...doc.data(), id: doc.id });
             localeRecords.push({ ...doc.data(), id: doc.id });
 
         })
-        loadingIndicator.style.display = 'none';
         recordsElement.style.display = 'grid';
         console.log(records)
         function renderRecords() {
@@ -96,7 +102,6 @@ function getUserIncidents() {
                 const { id } = button.dataset
                 const docRef = doc(database, 'users', userUid, "daily_incidents", id)
                 button.addEventListener('click', (e) => {
-                    console.log("Deleting:" + id)
                     deleteDoc(docRef)
                     console.log("Record Deleted")
                 })
@@ -107,7 +112,9 @@ function getUserIncidents() {
 
     //Initialize graph data
     const graphDataColRef = collection(userDocRef, "graph_data");
-    onSnapshot(graphDataColRef, (snapshot) => {
+     let quir = query(graphDataColRef, orderBy('createdAt', 'asc'))
+
+    onSnapshot(quir, (snapshot) => {
         let persistenceModule = []
         snapshot.docs.forEach((doc) => {
             persistenceModule.push({ ...doc.data(), id: doc.id });
@@ -134,7 +141,8 @@ function addRecord() {
     {
         date: '',
         day: '',
-        incidentCount: 0
+        incidentCount: 0,
+        createdAt: serverTimestamp(),
     };
 
     incidentData.date = dateInputElement.value
@@ -171,11 +179,11 @@ function addRecord() {
 
         // Add a new document with an automatically generated ID
         addDoc(dailyIncidentsDocRef, dailyIncidentData)
-            .then((docRef) => {
-                console.log("Document written with ID: ", docRef.id);
+            .then(() => {
+                console.log("Record added");
             })
             .catch((error) => {
-                console.error("Error adding document: ", error);
+                console.error("Error adding record: ", error);
             });
             addDoc(graphDataDocRef, dailyIncidentData)
     };

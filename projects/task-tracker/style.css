@@ -47,6 +47,8 @@ body {
 
 }
 
+
+
 h4 {
     margin: 5px;
 }
@@ -81,17 +83,48 @@ h4 {
 }
 
 
-.header i {
-    padding: 25px;
-    font-size: 30px;
-    transition: .3s ease;
-    color: rgb(137, 137, 137);
+.header .profile-icon-container {
+    position: relative;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+.header .profile-icon-container .holdder{
+    color: red;
+    height: 10px;
+    width: 10px;
+}
+
+.header.profile-icon-container i {
+    font-size: 16px;
+    margin: 0px 10px;
+    color: #5a6b81;
+}
+
+.header .profile-icon-container .profile-popup {
+    display: block;
+    background-color: #e0e4eb;
+    /* border: 1px solid rgb(105, 126, 146); */
+    border-radius: 5px;
+    position: absolute;
+    right: 5px;
+    width: 7rem;
+    height: 0px;
+    z-index: 1000;
+    padding: 0px 5px;
+    overflow: hidden;
+    transition: .1s ease-in;
 
 }
 
-.header i:hover {
-    color: rgb(255, 255, 255);
+
+.header .profile-icon-container .profile-popup p {
+    padding: 5px 0;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--text-color-dark);
 }
+
 
 .timer {
     font-size: 26px;
@@ -142,6 +175,36 @@ select {
     background: #333e5c;
 }
 
+/* loading screen animation */
+#loading-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+}
+
+#loading-screen p {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgb(200, 214, 226);
+}
+
+.loader {
+    border: 5px solid rgb(200, 214, 226);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
 .util {
     display: flex;
     justify-content: space-between;
@@ -162,6 +225,7 @@ select {
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
+    z-index: 9999;
     animation: fadeIn 0.3s ease-in-out;
 
 }
@@ -204,6 +268,11 @@ select {
     width: 70px;
 }
 
+
+
+
+
+
 .js-input-grid,
 .js-records-grid {
     width: auto;
@@ -242,6 +311,8 @@ select {
     border-radius: 10px;
     border: 1px solid #80a5c588;
 }
+
+
 
 .weekly-avg {
     margin-top: 10px;

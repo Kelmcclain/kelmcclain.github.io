@@ -2,9 +2,9 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebas
 import { getFirestore, collection, getDocs, addDoc, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 import {
     getAuth, createUserWithEmailAndPassword,
-    signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile
+    signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile,
+    sendEmailVerification, updatePassword, updateEmail
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
-import { getStorage } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDU95mBEwswXTrehr6-awwFxPNMOqnEscM",
@@ -23,8 +23,11 @@ const database = getFirestore();
 
 
 
+
+
+
 const currentPage = window.location.pathname;
-if (currentPage == '/register.html') {
+if (currentPage == '/projects/task-tracker/auth/register.html') {
     document.querySelector('.register').addEventListener('click', register)
     document.getElementById('password').addEventListener('keydown', (e) => {
         if (e.key === "Enter") {
@@ -33,7 +36,7 @@ if (currentPage == '/register.html') {
 
     })
     document.querySelector('.login-btn').addEventListener('click', () => {
-        window.location.href = '/login.html'
+        window.location.href = '/projects/task-tracker/auth/login.html'
     });
 
 }
@@ -42,7 +45,7 @@ if (currentPage == '/register.html') {
 
 function register() {
     // Get all input fields
-    const full_name = document.getElementById('full_name').value;
+    const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
@@ -50,8 +53,14 @@ function register() {
         alert('Email & Password Are Required');
         return;
     }
-    if (validate_field(full_name) == false) {
+    if (validate_field(username) == false) {
         alert('Name is required');
+        return;
+    }
+
+    var regex = /^[A-Za-z]+$/;
+    if (!regex.test(username)) {
+        alert("Username must be one word with no numbers, space or special characters.");
         return;
     }
 
@@ -60,20 +69,20 @@ function register() {
             const user = userCredential.user;
             const uid = user.uid;
             updateProfile(user, {
-                displayName: full_name
+                displayName: username
             })
             const userRef = doc(database, 'users', uid); // Create a Firestore document reference
 
             const user_data = {
                 email: email,
-                full_name: full_name,
+                username: username,
                 last_login: Date.now()
             };
 
             setDoc(userRef, user_data)
                 .then(() => {
-                    alert('User Created');
-                    window.location.href = 'tracker.html'
+                    alert('Account Created');
+                    window.location.href = '/'
                 })
                 .catch((error) => {
                     console.error('Error adding user data to Firestore:', error);
@@ -90,10 +99,10 @@ function register() {
 
 
 
-if (currentPage == '/login.html') {
+if (currentPage == '/projects/task-tracker/auth/login.html') {
     document.querySelector('.login-btn').addEventListener('click', login);
     document.querySelector('.register-btn').addEventListener('click', () => {
-        window.location.href = '/register.html'
+        window.location.href = '/projects/task-tracker/auth/register.html'
     });
 
 }
@@ -101,6 +110,7 @@ function login() {
     // Get the user's input for email and password
     const email = document.getElementById('login_email').value;
     const password = document.getElementById('login_password').value;
+    console.log('loging initiated')
 
     if (validate_email(email) === false || validate_password(password) === false) {
         alert('Invalid email or password');
@@ -114,7 +124,7 @@ function login() {
             // Successfully logged in
             const user = userCredential.user;
             console.log('User logged in:', user);
-            window.location.href = 'tracker.html';
+            window.location.href = '/';
         })
         .catch((error) => {
             // Handle login errors
@@ -168,27 +178,104 @@ function checkUserAuthStatus(callback) {
 checkUserAuthStatus((isUserLoggedIn) => {
     const currentPage = window.location.pathname;
 
-    if (!isUserLoggedIn && currentPage == '/tracker.html') {
-        window.location.href = 'login.html';
+    if (!isUserLoggedIn && currentPage == '/') {
+        window.location.href = '/projects/task-tracker/auth/login.html';
     }
 });
 
 
 
-if (currentPage == '/tracker.html') {
+if (currentPage == '/projects/task-tracker/index.html') {
+
     document.querySelector('.logout').addEventListener('click', logout);
+    document.querySelector('.profile').addEventListener('click', () => {
+        window.location.href = 'profile.html'
+
+    })
+    let isProfileMenuVisible = false;
+    document.querySelector('.profile-icon-container')
+        .addEventListener('click', () => {
+            const profileMenu = document.querySelector('.profile-popup')
+            if (isProfileMenuVisible) {
+                profileMenu.style.height = "0px"
+            } else {
+                profileMenu.style.height = "7rem"
+            }
+            isProfileMenuVisible = !isProfileMenuVisible;
+
+        })
+
 }
+
 // Log the user out
 function logout() {
+    console.log("Attempting logout")
     signOut(auth)
         .then(() => {
             // User has been logged out
             console.log("User logged out");
-            window.location.href = 'login.html';
+            window.location.href = '/projects/task-tracker/auth/login.html';
         })
         .catch((error) => {
             // Handle logout errors
             console.error("Logout error:", error);
         });
 }
+
+
+
+
+function validateForm() {
+    var usernameInput = document.getElementById("username");
+    var usernameValue = usernameInput.value;
+
+    // Regular expression to match a single word with caps (no numbers or special characters)
+    var regex = /^[A-Za-z]+$/;
+
+    if (!regex.test(usernameValue)) {
+        alert("Username must be one word with no numbers, space or special characters.");
+        return false; // Prevent form submission
+    }
+
+    return true; // Allow form submission
+}
+
+
+//Update User Profile | Fetch User Details and display
+if (currentPage == '/projects/task-tracker/profile.html') {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const userUid = user.uid;
+            console.log(`User is signed in with UID: ${userUid}`);
+            const displayName = user.displayName
+            const email = user.email;
+            const photoURL = user.photoURL;
+            const emailVerified = user.emailVerified;
+            console.log(displayName, email, photoURL, emailVerified)
+            const profileForm = document.querySelector('#profile-details')
+            profileForm.username.value = displayName
+            profileForm.email.value = email
+
+        }
+    })
+    document.querySelector('#submit-profile-update')
+        .addEventListener('click', (e) => {
+            const profileForm = document.querySelector('#profile-details')
+            e.preventDefault()
+            validateForm()
+            updateProfile(auth.currentUser, {
+                displayName: profileForm.username.value,
+            }).then(() => {
+                alert('Username updated')
+            }).catch((error) => {
+                console.log(error)
+            });
+            updateEmail(auth.currentUser, profileForm.email.value).then(() => {
+                alert('Email updated')
+            }).catch((error) => {
+                console.log(error)
+            });
+        })
+}
+
 

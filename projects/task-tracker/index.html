@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <!--Box icon-->
     <title>Le Traqueur</title>
     <!--Custom css-->
@@ -19,8 +20,15 @@
         <div class="header">
             <h2>Le Traqueur</h2>
             <h4 class="currentUser"></h4>
-            <i class='bx bx-log-out-circle logout'></i>
-         </div>
+            <div class="profile-icon-container">
+                <i class='bx bxs-user'></i>
+                  <div class="profile-popup">
+                    <p class="profile">Account <i class='bx bxs-user'></i></p>
+                    <p class="logout">Logout <i class='bx bx-log-out-circle' ></i></p>
+
+                </div>
+            </div>
+        </div>
     </section>
     <section id="body-section">
         <div class="container">
@@ -47,7 +55,10 @@
             <div class="weekly-avg">Weekly Average:</div>
         </div>
         <div class="records-container">
-            <img src="images/loading.png" alt="loading.." class="loading-image" id="loading-indicator">
+            <div id="loading-screen">
+                <div class="loader"></div>
+                <p>Just a moment..</p>
+              </div>
             <div class="js-input-grid">
                 <input type="Date" class="js-date-input" placeholder="Day">
                 <input type="number" class="js-count-input" placeholder="Incidents">
@@ -57,10 +68,13 @@
             </div>
         </div>
         <div class="stats">
-            
+            <div id="loading-screen">
+                <div class="loader"></div>
+                <p>Just a moment..</p>
+              </div>
             <div class="stats-leading">
                 <h4>Statistics</h4>
-                <button class="button js-graph">Graph</button> 
+                <button class="button js-graph">Graph</button>
                 <!-- <button class="button js-clear-stats">Clear Stats</button> -->
 
             </div>
@@ -85,6 +99,7 @@
     </section>
 
     <script src="script.js"></script>
+    <script type="module" src="auth/auth-page.js"></script>
     <script type="module" src="index.js"></script>
     <script type="module" src="js/tracker.js"></script>
 

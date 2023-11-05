@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+
+:root {
+    --primary-color: #22273b;
+    --secondary-color: #31374e;
+    --accent-color: #454c67;
+    --text-color-dark: #2e2e2f;
+    --text-color-light: #ffffff;
+
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background: var(--primary-color);
+    font-size: 18px;
+    margin: 0;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 300;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+}
+
+h2 {
+    color: var(--text-color-light);
+}
+
+button {
+    width: 100px;
+    padding: 10px 15px;
+    background: var(--accent-color);
+    color: var(--text-color-light);
+    border: 1px solid var(--accent-color);
+    border-radius: 10px;
+    margin-right: 10px;
+    transition: 0.3s ease;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+button:hover {
+    border: 1px solid lightblue;
+    background-color: #1e273a;
+}
+
+.login-form,
+.registration-form {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    background: var(--secondary-color);
+    width: 50vh;
+    height: auto;
+    min-height: 20vh;
+    border-radius: 10px;
+    padding: 20px;
+    transition: .2s ease-in-out;
+
+}
+
+.login-form .login-btn,
+.registration-form .register{
+    width: 200px;
+}
+
+.login-form p,
+.registration-form p{
+    color: var(--text-color-light);
+}
+
+.login-form p span,
+.registration-form p span{
+    color: #5599aa;
+}
+
+.login-form p span:hover,
+.registration-form p span:hover{
+    color: #5599aa;
+    cursor: pointer;
+}
+
+input {
+    background: var(--accent-color);
+    padding: 0;
+    height: 2rem;
+    width: 45vh;
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    margin: 10px;
+    outline: none;
+    padding: 5px;
+    color: var(--text-color-light);
+    transition: .3s ease;
+
+
+}
+
+input:focus {
+    border: 1px solid lightblue;
+
+}
+
+
+
+.profile-container{
+    display: flex;
+    width: 100%;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-picture{
+    width: 100px;
+    height: 100%;
+    background-image: url(/images/profile.jpg);
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    background-position: center;
+    background-size: cover;
+    transition: .3s ease-in-out;
+    border: 2px solid var(--accent-color);
+}
+
+.profile-picture:hover{
+    transform:  scale(1.02);
+    border: 2px solid var(--text-color-light);
+
+}
+
+#submit-profile-update{
+    margin-left: 10px;
+}
+
+
+@media (max-width: 477px) {
+
+    .login-form,
+    .registration-form {
+        width: 22rem;
+        min-height: 20vh;
+        border-radius: 10px;
+        padding: 10px 0;
+    }
+
+    input {
+        width: 300px;
+    }
+
+}

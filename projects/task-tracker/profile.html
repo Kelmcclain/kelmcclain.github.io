@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="auth/login.css"> <!-- Replace with the path to your CSS file -->
+</head>
+<body>
+    <div class="login-form">
+        <h2>Update Profile</h2>
+        <form id="profile-details">
+            <div class="profile-container">
+                <div class="profile-picture">
+                </div>
+            </div>
+            <input type="text" placeholder="Username" value="" required name="username" id="username">
+            <input type="text" placeholder="Email" value="" required name="email" id="email">
+            <input type="password" disabled placeholder="New Password">
+            <input type="password" placeholder="Confirm Password" disabled name="password">
+            <button id="submit-profile-update">Update</button>
+        </form>
+    </div>
+    <script type="module" src="auth/auth-page.js"></script>
+</body>
+</html>
+
+
