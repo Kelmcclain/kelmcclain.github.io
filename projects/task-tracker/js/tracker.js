@@ -34,8 +34,8 @@ onAuthStateChanged(auth, (user) => {
         userUid = user.uid;
         console.log(`User is signed in with UID: ${userUid}`);
         document.querySelector('.currentUser').innerHTML = user.displayName
-
         getUserIncidents()
+        getUserIncidentCount()
     } else {
         console.log("User is signed out");
     }
@@ -45,12 +45,12 @@ onAuthStateChanged(auth, (user) => {
 document.addEventListener('DOMContentLoaded', function () {
     // Hide the loading screen when the page is fully loaded
     window.addEventListener('load', function () {
-      const loadingScreen = document.querySelectorAll('#loading-screen');
-      loadingScreen.forEach((screen)=>{
-        screen.style.display = 'none';
-      })
+        const loadingScreen = document.querySelectorAll('#loading-screen');
+        loadingScreen.forEach((screen) => {
+            screen.style.display = 'none';
+        })
     });
-  });
+});
 
 
 //Records 
@@ -81,7 +81,6 @@ function getUserIncidents() {
 
         })
         recordsElement.style.display = 'grid';
-        console.log(records)
         function renderRecords() {
             let recordsGridHTML = []
             for (let index = 0; index < records.length; index++) {
@@ -112,7 +111,7 @@ function getUserIncidents() {
 
     //Initialize graph data
     const graphDataColRef = collection(userDocRef, "graph_data");
-     let quir = query(graphDataColRef, orderBy('createdAt', 'asc'))
+    let quir = query(graphDataColRef, orderBy('createdAt', 'asc'))
 
     onSnapshot(quir, (snapshot) => {
         let persistenceModule = []
@@ -123,6 +122,91 @@ function getUserIncidents() {
         renderGraphicalData(persistenceModule)
     })
 
+}
+
+
+
+let totalIncidents = null
+let totalIncElement = document.querySelector('.incident-Element')
+
+function getUserIncidentCount() {
+    let incidentId = ''
+    const userDocRef = doc(database, 'users', userUid)
+    const dailyIncidentsCount = collection(userDocRef, "incident_count");
+    onSnapshot(dailyIncidentsCount, (snapshot) => {
+        snapshot.docs.forEach((doc) => {
+            totalIncidents = ({ ...doc.data(), id: doc.id })
+
+        })
+        console.log(totalIncidents)
+        incidentId = totalIncidents.id
+        renderHTML(totalIncidents);
+    })
+    document.querySelector('.js-increment').addEventListener('click', () => {
+        incrementIncident()
+    })
+    document.addEventListener('keydown', (event) => {
+        if (event.key === '+') {
+            incrementIncident();
+            startTimer()
+        }
+    });
+
+    function incrementIncident() {
+        let incidents = totalIncidents.incidents += 1;
+        let incidentData = { incidents }
+        const docRef = doc(dailyIncidentsCount, incidentId)
+        updateDoc(docRef, incidentData)
+    }
+
+    //Decrementor Hander
+    document.querySelector('.js-decrement').addEventListener('click', () => {
+        decrementIncident()
+    })
+    document.addEventListener('keydown', (event) => {
+        if (event.key === '-') {
+            decrementIncident();
+        }
+    });
+    function decrementIncident() {
+        if (totalIncidents.incidents === 0) {
+            return
+        }
+        let incidents = totalIncidents.incidents -= 1;
+        let incidentData = { incidents }
+        const docRef = doc(dailyIncidentsCount, incidentId)
+        updateDoc(docRef, incidentData)
+    }
+
+    //Reset Hander
+    const popup = document.getElementById('popup');
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    document.querySelector('.js-reset').addEventListener('click', () => {
+        popup.style.display = 'flex';
+    })
+
+    yesButton.addEventListener('click', () => {
+        console.log('Incidents Cleared');
+        localStorage.removeItem('incidents')
+        let incidentData = { incidents: 0 }
+        const docRef = doc(dailyIncidentsCount, incidentId)
+        updateDoc(docRef, incidentData)
+        renderHTML(totalIncidents)
+        closePopup();
+    });
+
+    noButton.addEventListener('click', () => {
+        console.log('Code execution cancelled.');
+        closePopup();
+    });
+
+    function closePopup() {
+        popup.style.display = 'none';
+    }
+    function renderHTML(data) {
+        totalIncElement.innerHTML = `Total Incidents: ${data.incidents}`
+    }
 }
 
 countInputElement.addEventListener('keydown', (event) => {
@@ -167,7 +251,7 @@ function addRecord() {
             updateExistingRecord(userUid, recordToUpdate, incidentData)
         } else {
             addDailyRecord(userUid, incidentData);
-            
+
         }
 
     }
@@ -185,7 +269,7 @@ function addRecord() {
             .catch((error) => {
                 console.error("Error adding record: ", error);
             });
-            addDoc(graphDataDocRef, dailyIncidentData)
+        addDoc(graphDataDocRef, dailyIncidentData)
     };
 
     function updateExistingRecord(userUid, recordToUpdate, incidentData) {
@@ -199,105 +283,104 @@ function addRecord() {
     countInputElement.value = '';
 }
 
+function renderGraphicalData(data) {
+    const tableBody = document.getElementById('table-body');
+    let persistenceModule = data
+    // Function to render the table
+    function renderTable(data) {
+        tableBody.innerHTML = '';
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            const dateObj = new Date(item.date);
+            const dayOfWeek = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
 
-function renderGraphicalData(data){
-const tableBody = document.getElementById('table-body');
-let persistenceModule = data
-// Function to render the table
-function renderTable(data) {
-    tableBody.innerHTML = '';
-    data.forEach(item => {
-        const row = document.createElement('tr');
-        const dateObj = new Date(item.date);
-        const dayOfWeek = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
-
-        row.innerHTML = `
+            row.innerHTML = `
         <td>${item.date} (${dayOfWeek})</td>
         <td>${item.incidentCount}</td>
       `;
-        tableBody.appendChild(row);
-    });
-}
-// Initial rendering
-renderTable(persistenceModule);
+            tableBody.appendChild(row);
+        });
+    }
+    // Initial rendering
+    renderTable(persistenceModule);
 
-// Function to calculate weekly averages
-function calculateWeeklyAverages(data) {
-    const weeklyAverages = [];
-    let weekStartIndex = 0;
-    let weekEndIndex = 0;
-    let currentWeekTotal = 0;
+    // Function to calculate weekly averages
+    function calculateWeeklyAverages(data) {
+        const weeklyAverages = [];
+        let weekStartIndex = 0;
+        let weekEndIndex = 0;
+        let currentWeekTotal = 0;
 
-    while (weekEndIndex < data.length) {
-        currentWeekTotal += data[weekEndIndex].incidentCount;
+        while (weekEndIndex < data.length) {
+            currentWeekTotal += data[weekEndIndex].incidentCount;
 
-        const weekStartDate = new Date(data[weekStartIndex].date);
-        const weekEndDate = new Date(data[weekEndIndex].date);
+            const weekStartDate = new Date(data[weekStartIndex].date);
+            const weekEndDate = new Date(data[weekEndIndex].date);
 
-        if (weekEndDate.getDay() === 6) { // Assuming Saturday is the end of the week
-            const average = currentWeekTotal / 7;
-            weeklyAverages.push(average.toFixed(2));
+            if (weekEndDate.getDay() === 6) { // Assuming Saturday is the end of the week
+                const average = currentWeekTotal / 7;
+                weeklyAverages.push(average.toFixed(2));
 
-            currentWeekTotal = 0;
-            weekStartIndex = weekEndIndex + 1;
+                currentWeekTotal = 0;
+                weekStartIndex = weekEndIndex + 1;
+            }
+
+            weekEndIndex++;
         }
 
-        weekEndIndex++;
+        return weeklyAverages;
+    }
+    // Function to update table with weekly averages
+    function updateTableWithAverages() {
+        const weeklyAverages = calculateWeeklyAverages(persistenceModule);
+        const tableRows = tableBody.querySelectorAll('tr');
+
+        tableRows.forEach((row, index) => {
+            const cell = document.createElement('td');
+            cell.textContent = index < weeklyAverages.length ? weeklyAverages[index] : '';
+            row.appendChild(cell);
+        });
     }
 
-    return weeklyAverages;
-}
-// Function to update table with weekly averages
-function updateTableWithAverages() {
-    const weeklyAverages = calculateWeeklyAverages(persistenceModule);
-    const tableRows = tableBody.querySelectorAll('tr');
+    // Call function to update table with weekly averages
+    updateTableWithAverages();
 
-    tableRows.forEach((row, index) => {
-        const cell = document.createElement('td');
-        cell.textContent = index < weeklyAverages.length ? weeklyAverages[index] : '';
-        row.appendChild(cell);
-    });
-}
+    //Render Stats Graph
+    const graphButton = document.querySelector('.js-graph')
+    graphButton.addEventListener('click', () => {
 
-// Call function to update table with weekly averages
-updateTableWithAverages();
-
-//Render Stats Graph
-const graphButton = document.querySelector('.js-graph')
-graphButton.addEventListener('click', () => {
-
-    if (graphButton.innerHTML === 'Graph') {
-        graphButton.innerHTML = 'Stats'
-        document.querySelector('.js-stats').innerHTML = `
+        if (graphButton.innerHTML === 'Graph') {
+            graphButton.innerHTML = 'Stats'
+            document.querySelector('.js-stats').innerHTML = `
     <div>
         <canvas id="myChart"></canvas>
     </div>`
 
-        const ctx = document.getElementById('myChart');
-        const labels = persistenceModule.map(item => item.date);
-        const incidentCounts = persistenceModule.map(item => item.incidentCount);
+            const ctx = document.getElementById('myChart');
+            const labels = persistenceModule.map(item => item.date);
+            const incidentCounts = persistenceModule.map(item => item.incidentCount);
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Incident Count',
-                    data: incidentCounts,
-                    borderWidth: .5,
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Incident Count',
+                        data: incidentCounts,
+                        borderWidth: .5,
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
-    } else {
-        graphButton.innerHTML = 'Graph'
-        document.querySelector('.js-stats').innerHTML = `
+            });
+        } else {
+            graphButton.innerHTML = 'Graph'
+            document.querySelector('.js-stats').innerHTML = `
         <div class="table-container">
                     <table id="incident-table">
                         <thead>
@@ -312,25 +395,25 @@ graphButton.addEventListener('click', () => {
                     </table>
                 </div>`
 
-        const tableBody = document.getElementById('table-body');
+            const tableBody = document.getElementById('table-body');
 
-        // Function to render the table
-        function renderTable(data) {
-            tableBody.innerHTML = '';
-            data.forEach(item => {
-                const row = document.createElement('tr');
-                const dateObj = new Date(item.date);
-                const dayOfWeek = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
+            // Function to render the table
+            function renderTable(data) {
+                tableBody.innerHTML = '';
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    const dateObj = new Date(item.date);
+                    const dayOfWeek = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
 
-                row.innerHTML = `
+                    row.innerHTML = `
                         <td>${item.date} (${dayOfWeek})</td>
                         <td>${item.incidentCount}</td>
                       `;
-                tableBody.appendChild(row);
-            });
+                    tableBody.appendChild(row);
+                });
+            }
+            renderTable(persistenceModule)
         }
-        renderTable(persistenceModule)
-    }
 
-})
+    })
 }
