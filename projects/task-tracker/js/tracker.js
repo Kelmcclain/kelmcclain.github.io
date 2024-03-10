@@ -138,7 +138,6 @@ function getUserIncidentCount() {
             totalIncidents = ({ ...doc.data(), id: doc.id })
 
         })
-        console.log(totalIncidents)
         incidentId = totalIncidents.id
         renderHTML(totalIncidents);
     })
@@ -287,22 +286,55 @@ function renderGraphicalData(data) {
     const tableBody = document.getElementById('table-body');
     let persistenceModule = data
     // Function to render the table
-    function renderTable(data) {
+    function renderTable(data, itemsPerPage, currentPage) {
         tableBody.innerHTML = '';
-        data.forEach(item => {
+        
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const currentPageData = data.slice(startIndex, endIndex);
+    
+        currentPageData.forEach(item => {
             const row = document.createElement('tr');
             const dateObj = new Date(item.date);
             const dayOfWeek = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
-
+    
             row.innerHTML = `
-        <td>${item.date} (${dayOfWeek})</td>
-        <td>${item.incidentCount}</td>
-      `;
+                <td>${item.date} (${dayOfWeek})</td>
+                <td>${item.incidentCount}</td>
+            `;
             tableBody.appendChild(row);
         });
+    
+        // Add pagination controls
+        const totalPages = Math.ceil(data.length / itemsPerPage);
+    
+        const paginationContainer = document.getElementById('pagination');
+        paginationContainer.innerHTML = '';
+    
+        for (let i = 1; i <= totalPages; i++) {
+            const pageButton = document.createElement('button');
+            pageButton.textContent = i;
+    
+            if (i === currentPage) {
+                pageButton.classList.add('active');
+            }
+    
+            pageButton.addEventListener('click', () => {
+                renderTable(data, itemsPerPage, i);
+            });
+    
+            paginationContainer.appendChild(pageButton);
+        }
     }
-    // Initial rendering
-    renderTable(persistenceModule);
+    
+    // ...
+    
+    // Call renderTable with an initial current page
+    const itemsPerPage = 5; // You can adjust this value based on your preference
+    let currentPage = 1;
+    
+    renderTable(persistenceModule, itemsPerPage, currentPage);
+    
 
     // Function to calculate weekly averages
     function calculateWeeklyAverages(data) {
@@ -351,10 +383,10 @@ function renderGraphicalData(data) {
 
         if (graphButton.innerHTML === 'Graph') {
             graphButton.innerHTML = 'Stats'
-            document.querySelector('.js-stats').innerHTML = `
-    <div>
-        <canvas id="myChart"></canvas>
-    </div>`
+            document.querySelector('#incident-table').innerHTML = `
+                <div>
+                <canvas id="myChart"></canvas>
+                </div>`
 
             const ctx = document.getElementById('myChart');
             const labels = persistenceModule.map(item => item.date);
@@ -381,38 +413,72 @@ function renderGraphicalData(data) {
         } else {
             graphButton.innerHTML = 'Graph'
             document.querySelector('.js-stats').innerHTML = `
-        <div class="table-container">
-                    <table id="incident-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Incidents</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-body">
-                            <!-- Table content will be added here -->
-                        </tbody>
-                    </table>
-                </div>`
+                    <div class="table-container">
+                                <table id="incident-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Incidents</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-body">
+                                        <!-- Table content will be added here -->
+                                    </tbody>
+                                </table>
+                            </div>`
 
             const tableBody = document.getElementById('table-body');
 
             // Function to render the table
-            function renderTable(data) {
+            function renderTable(data, itemsPerPage, currentPage) {
                 tableBody.innerHTML = '';
-                data.forEach(item => {
+                
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const currentPageData = data.slice(startIndex, endIndex);
+            
+                currentPageData.forEach(item => {
                     const row = document.createElement('tr');
                     const dateObj = new Date(item.date);
                     const dayOfWeek = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
-
+            
                     row.innerHTML = `
                         <td>${item.date} (${dayOfWeek})</td>
                         <td>${item.incidentCount}</td>
-                      `;
+                    `;
                     tableBody.appendChild(row);
                 });
+            
+                // Add pagination controls
+                const totalPages = Math.ceil(data.length / itemsPerPage);
+            
+                const paginationContainer = document.getElementById('pagination');
+                paginationContainer.innerHTML = '';
+            
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageButton = document.createElement('button');
+                    pageButton.textContent = i;
+            
+                    if (i === currentPage) {
+                        pageButton.classList.add('active');
+                    }
+            
+                    pageButton.addEventListener('click', () => {
+                        renderTable(data, itemsPerPage, i);
+                    });
+            
+                    paginationContainer.appendChild(pageButton);
+                }
             }
-            renderTable(persistenceModule)
+            
+            // ...
+            
+            // Call renderTable with an initial current page
+            const itemsPerPage = 5; // You can adjust this value based on your preference
+            let currentPage = 1;
+            
+            renderTable(persistenceModule, itemsPerPage, currentPage);
+            
         }
 
     })
