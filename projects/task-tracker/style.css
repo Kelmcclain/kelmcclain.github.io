@@ -371,6 +371,21 @@ table {
     border-radius: 5px;
 }
 
+#pagination button{
+    transition: .1s ease-in-out;
+    margin-top: 10px;
+}
+
+#pagination button:hover{
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+}
+
+#pagination button.active{
+    background-color: var(--primary-color);
+    color: white;
+}
 
 
 

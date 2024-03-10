@@ -288,7 +288,7 @@ function renderGraphicalData(data) {
     // Function to render the table
     function renderTable(data, itemsPerPage, currentPage) {
         tableBody.innerHTML = '';
-        
+    
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
         const currentPageData = data.slice(startIndex, endIndex);
@@ -311,7 +311,26 @@ function renderGraphicalData(data) {
         const paginationContainer = document.getElementById('pagination');
         paginationContainer.innerHTML = '';
     
-        for (let i = 1; i <= totalPages; i++) {
+        const maxPagesToShow = 3; // Adjust this value to change the number of pages displayed
+    
+        let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+        let endPage = Math.min(startPage + maxPagesToShow - 1, totalPages);
+    
+        if (endPage - startPage + 1 < maxPagesToShow) {
+            startPage = Math.max(1, endPage - maxPagesToShow + 1);
+        }
+    
+        // Add previous button
+        if (currentPage > 1) {
+            const prevButton = document.createElement('button');
+            prevButton.textContent = 'Previous';
+            prevButton.addEventListener('click', () => {
+                renderTable(data, itemsPerPage, currentPage - 1);
+            });
+            paginationContainer.appendChild(prevButton);
+        }
+    
+        for (let i = startPage; i <= endPage; i++) {
             const pageButton = document.createElement('button');
             pageButton.textContent = i;
     
@@ -325,6 +344,16 @@ function renderGraphicalData(data) {
     
             paginationContainer.appendChild(pageButton);
         }
+    
+        // Add next button
+        if (currentPage < totalPages) {
+            const nextButton = document.createElement('button');
+            nextButton.textContent = 'Next';
+            nextButton.addEventListener('click', () => {
+                renderTable(data, itemsPerPage, currentPage + 1);
+            });
+            paginationContainer.appendChild(nextButton);
+        }
     }
     
     // ...
@@ -334,6 +363,7 @@ function renderGraphicalData(data) {
     let currentPage = 1;
     
     renderTable(persistenceModule, itemsPerPage, currentPage);
+    
     
 
     // Function to calculate weekly averages
